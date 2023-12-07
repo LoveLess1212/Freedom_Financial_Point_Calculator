@@ -1,10 +1,207 @@
 <template>
-<h1> Captital</h1>
+    <div class="d-flex flex-column main">
+        <div class="page">
+
+        <div class="d-flex justify-center">
+            <h1 class="">Title</h1>
+        </div>
+
+        <div class="row justify-content">
+            <form>
+                <div class="col-5 col-md-5">
+                    <div class="tabs">
+                        <div class="nav-tabs">
+                            <div class="nav-item rounded-t-xl" @click="setActive('tab-1')">
+                                Akitin 1
+                            </div>
+                            <div class="nav-item rounded-t-xl" @click="setActive('tab-2')">
+                                Akitin 2
+                            </div>
+                            <div class="nav-item rounded-t-xl" @click="setActive('tab-3')">
+                                Akitin 3
+                            </div>
+                            <div class="nav-item rounded-t-xl" @click="setActive('tab-4')">
+                                Akitin 4
+                            </div>
+                            <div class="nav-item rounded-t-xl" @click="setActive('tab-5')">
+                                Passiva 1
+                            </div>
+                            <div class="nav-item rounded-t-xl" @click="setActive('tab-6')">
+                                Passiva 2
+                            </div>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane" v-show="isActive('tab-1')">
+                                <div class="for-example">
+                                    <h1>Asset-Liquid Investment</h1>
+                                    <div class="tab">
+                                        <div class="LiquidInvestment">
+                                            <p>Casher</p>
+                                            <input id="cash" type="number" v-model="cash" placeholder="Enter num"/> <br>
+                                            <p>Shares</p>
+                                            <input id="share" type="number" v-model="share" placeholder="Enter num"/> <br>
+                                            <p>Equity fund</p>
+                                            <input id="fund" type="number" v-model="fund" placeholder="Enter num"/><br>
+                                            <p>Pensions</p>
+                                            <input id="pensions" type="number" v-model="pensions" placeholder="Enter num"/><br>
+                                            <p>Pension fund</p>
+                                            <input id="pensionfund" type="number" v-model="pensionfund" placeholder="Enter num"/><br>
+                                            <p>Derivatives</p>
+                                            <input id="derivatives" type="number" v-model="derivatives" placeholder="Enter num"/><br>
+                                            <p>Precious Metals</p>
+                                            <input id="preciousmetal" type="number" v-model="preciousmetal" placeholder="Enter num"/><br>
+                                            <p>Other</p>
+                                            <input id="other" type="number" v-model="other" placeholder="Enter num"/><br>
+
+                                            
+                                            <h1 id="message"> </h1>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane" v-show="isActive('tab-2')">
+                                <h1>Asset-Real Estate</h1>
+                                <div class="tab">
+                                    <div class="LiquidInvestment">
+                                        <p>Owner-occupied property</p>
+                                        <input id="owner-occupied-property" type="number" v-model="OwnerOccupiedProperty" placeholder="Enter num"/> <br>
+                                        <p>Rented residential properties</p>
+                                        <input id="rented-residential-properties" type="number" v-model="RentedResidentialProperties" placeholder="Enter num"/> <br>
+                                        <p>Rented commercial properties</p>
+                                        <input id="rented-commercial-properties" type="number" v-model="RentedCommercialProperties" placeholder="Enter num"/><br>
+                                        <p>Undeveloped lots</p>
+                                        <input id="undeveloped-lots" type="number" v-model="UndevelopedLots" placeholder="Enter num"/><br>
+                                        <p>Closed real estate funds</p>
+                                        <input id="closed-real-estate-funds" type="number" v-model="ClosedRealEstateFunds" placeholder="Enter num"/><br>
+                                        <p>Open real estate funds</p>
+                                        <input id="open-real-estate-funds" type="number" v-model="OpenRealEstateFunds" placeholder="Enter num"/><br>
+                                        <p>Other</p>
+                                        <input id="other2" type="number" v-model="other2" placeholder="Enter num"/><br>
+                                        <h1 id="message"> </h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" v-show="isActive('tab-3')">
+                                <h1>Asset-Coporate Holding</h1>
+                                <div class="tab">
+                                    <div class="LiquidInvestment">
+                                        <p>Active participations</p>
+                                        <input id="active-participations" type="number" v-model="ActiveParticipations" placeholder="Enter num"/> <br>
+                                        <p>Not active participations</p>
+                                        <input id="not-active-participations" type="number" v-model="NotActiveParticipations" placeholder="Enter num"/> <br>
+                                        
+                                        <h1 id="message"> </h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" v-on:click="LiquidInvestment(cash, share, fund, pensions, pensionfund, derivatives,preciousmetal,other)">Ok</button>
+                    </div>
+                </div>
+            </form>
+            <!-- <p>cash: {{ cash }}</p>
+            <p>share: {{ share }}</p>
+            <p>fund: {{ fund }}</p> -->
+            <p>result: {{ result }}</p>
+        </div>
+</div>
+
+</div>
 
 </template>
 
 <script>
-    export default {
-        name: 'Capital'
+    export default 
+    {
+        name: 'Capital',
+        data(){
+            return{
+                cash: '', share: '', fund: '', pensions:'', pensionfund:'', derivatives:'', preciousmetal:'', other:'', OwnerOccupiedProperty:'', RentedResidentialProperties:'', RentedCommercialProperties:'',UndevelopedLots:'',
+                ClosedRealEstateFunds:'',OpenRealEstateFunds:'',other2:'',ActiveParticipations: '', NotActiveParticipations:'',
+                result: ''
+            }
+        },
+        data:() =>({
+            activeTab: 'tab-1'
+        })
+        ,
+        methods:
+        {
+            setActive(tab){
+                this.activeTab = tab
+            },
+            isActive(tab){
+                return this.activeTab ==tab;
+            },
+            LiquidInvestment(n1,n2,n3,n4,n5,n6,n7,n8)
+            {
+                this.result = n1 + n2 + n3+n4+n5+n6+n7+n8;
+            }
+        }
+        
     }
+   
+    
+    
 </script>
+<style>
+.LiquidInvestment input{
+    width: 300px;
+    height: 40px;
+    padding-left: 20px;
+    display: block;
+    margin-bottom: 30px;
+   
+    margin-left: 10px;
+    border: 1px solid skyblue;
+}
+/* .LiquidInvestment button{
+    width: 220px;
+    height: 40px;
+    border: 1px solid black
+} */
+.tabs{
+    width: 900px;
+    margin: 0 auto;
+}
+.nav-tabs{
+    display: flex;
+    justify-content: left;
+}
+.nav-item{
+    cursor: pointer;
+    width: 150px;
+    background-color: aqua;
+    text-align: center;
+    
+}
+.tab-content{
+    padding: 32px;
+
+}
+.for-example h1{
+    margin-top: 0;
+}
+.main {
+    background-color: #b1b1b1;
+    height: 100%;
+}
+.page {
+    background-color: #ffffff;
+    padding: 50px;
+    margin: 50px;
+    width: auto;
+    border-radius: 50px;
+}
+.button {
+  background-color: #04AA6D; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+</style>
