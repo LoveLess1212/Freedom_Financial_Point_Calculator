@@ -95,7 +95,57 @@
                                     </div>
                                 </div>
                             </div>
-                            
+                            <div class="tab-pane" v-show="isActive('tab-4')">
+                                <h1>Asset-Other Asset</h1>
+                                <div class="tab">
+                                    <div class="LiquidInvestment">
+                                        <p>Capital building insurance</p>
+                                        <input id="capital-building-insurance" type="number" v-model="CapitalBuildingInsurance" placeholder="Enter num"/> <br>
+                                        <p>leasing fund</p>
+                                        <input id="leasing-fund" type="number" v-model="LeasingFund" placeholder="Enter num"/> <br>
+                                        <p>Art and Collections</p>
+                                        <input id="art-and-collections" type="number" v-model="ArtAndCollections" placeholder="Enter num"/> <br>
+                                        <p>Claims</p>
+                                        <input id="claims" type="number" v-model="Claims" placeholder="Enter num"/> <br>
+                                        <p>Other</p>
+                                        <input id="other3" type="number" v-model="other3" placeholder="Enter num"/> <br>
+                                        <h1 id="message"> </h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" v-show="isActive('tab-5')">
+                                <h1>Liabilities - Liabilities</h1>
+                                <div class="tab">
+                                    <div class="LiquidInvestment">
+                                        <p>Object-related liabilities</p>
+                                        <input id="object-related-liabilities" type="number" v-model="ObjectRelatedLiabilities" placeholder="Enter num"/> <br>
+                                        <p>Non-property-related liabilities</p>
+                                        <input id="non-property-related-liabilities" type="number" v-model="NonPropertyRelatedLiabilities" placeholder="Enter num"/> <br>
+                                        
+                                        <h1 id="message"> </h1>
+                                    </div>
+                                </div>
+                                <h1>Liabilities - Provisions</h1>
+                                <div class="LiquidInvestment">
+                                        <p>Provisions</p>
+                                        <input id="provisions" type="number" v-model="Provisions" placeholder="Enter num"/> <br>
+                                    
+                                        <h1 id="message"> </h1>
+                                    </div>
+                            </div>
+                            <div class="tab-pane" v-show="isActive('tab-6')">
+                                <h1>Liabilities - Reserved Equity</h1>
+                                <div class="tab">
+                                    <div class="LiquidInvestment">
+                                        <p>Reserved equity for consumption</p>
+                                        <input id="reserved-equity-for-consumption" type="number" v-model="ReservedEquityForConsumption" placeholder="Enter num"/> <br>
+                                        <p>Reserved equity capital for pension provision</p>
+                                        <input id="reserved-equity-capital-for-pension-provision" type="number" v-model="ReservedEquityCapitalForPensionProvision" placeholder="Enter num"/> <br>
+                                        
+                                        <h1 id="message"> </h1>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <button type="button" v-on:click="LiquidInvestment(cash, share, fund, pensions, pensionfund, derivatives,preciousmetal,other)">Ok</button>
                     </div>
