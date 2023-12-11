@@ -1,4 +1,4 @@
-export const datas = {
+export const data = {
     labels: ['VueJs', 'EmberJs', 'ReactJs', 'AngularJs'],
     datasets: [
         {

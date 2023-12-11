@@ -1,14 +1,10 @@
 <script>
-import {Chart as ChartJS, ArcElement, Tooltip, Legend} from "chart.js";
-import {Pie} from "vue-chartjs";
-import * as chartConfig from "./chartConfig.js";
 import {ref} from "vue";
-
-ChartJS.register(ArcElement, Tooltip, Legend);
+import PieChart from "./PieChart.vue";
 export default {
   name: "Step2",
 components: {
-    Pie
+    PieChart
   },
   setup() {
     const Cash = ref();
@@ -34,7 +30,6 @@ components: {
   }
   ,
   data() {
-    return chartConfig
   },
   computed: {
     TotalAssets() {
@@ -46,7 +41,9 @@ components: {
     FreeEquity() {
       return parseInt(this.TotalAssets) - parseInt(this.TotalLiab)
     },
-  }
+
+  },
+
 }
 </script>
 
@@ -240,7 +237,9 @@ components: {
             </v-row>
           </v-card-text>
         </v-card>
-
+        <div>
+        <PieChart/>
+        </div>
       </v-col>
     </v-row>
   </v-container>

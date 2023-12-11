@@ -2,6 +2,7 @@
 import test from "./test.vue";
 import Step1 from "./LifeChartStep/Step 1.vue";
 import Step2 from "./LifeChartStep/Step2.vue";
+import PieChart from "./LifeChartStep/PieChart.vue";
 
 export default {
   name: 'MainStep',
@@ -10,6 +11,7 @@ export default {
     Step2,
     Step1,
     test,
+    PieChart
   },
   data() {
     return {
@@ -50,7 +52,7 @@ export default {
           <Step2/>
         </v-stepper-window-item>
         <v-stepper-window-item value="3">
-          <test/>
+          <PieChart/>
         </v-stepper-window-item>
       </v-stepper-window>
       <v-stepper-actions class="bg-amber-lighten-4 pt-2" color="amber-darken-2"
