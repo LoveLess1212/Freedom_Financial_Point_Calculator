@@ -2,13 +2,14 @@
 <template>
     <div class="d-flex flex-column main">
         <div class="page">
-
+  
         <div class="d-flex justify-center">
             <h1 class="">Title</h1>
         </div>
-
+  
         <div class="row justify-content">
             <form>
+              <v-row>
                 <div class="col-5 col-md-5">
                     <div class="tabs">
                         <div class="nav-tabs">
@@ -32,6 +33,7 @@
                             </div>
                         </div>
                         <div class="tab-content">
+                          
                             <div class="tab-pane" v-show="isActive('tab-1')">
                                 <div class="for-example">
                                     <h1>Asset-Liquid Investment</h1>
@@ -53,13 +55,13 @@
                                             <input id="preciousmetal" type="number" v-model="preciousmetal" placeholder="Enter num"/><br>
                                             <p>Other</p>
                                             <input id="other" type="number" v-model="other" placeholder="Enter num"/><br>
-
+  
                                             
                                             <h1 id="message"> </h1>
                                         </div>
                                     </div>
                                 </div>
-
+  
                             </div>
                             <div class="tab-pane" v-show="isActive('tab-2')">
                                 <h1>Asset-Real Estate</h1>
@@ -148,7 +150,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="button" v-on:click="calculate(
+                            <button type="button" v-on:click="calculate(
                             cash, share, fund, pensions, pensionfund, derivatives, preciousmetal, other, 
                             OwnerOccupiedProperty, RentedResidentialProperties, RentedCommercialProperties,UndevelopedLots, ClosedRealEstateFunds,OpenRealEstateFunds,other2,
                             ActiveParticipations, NotActiveParticipations,
@@ -156,20 +158,30 @@
                             ObjectRelatedLiabilities, NonPropertyRelatedLiabilities, Provisions,
                             ReservedEquityForConsumption, ReservedEquityCapitalForPensionProvision)">Ok</button>
                     </div>
+                            <!-- result show -->
+                    
+                           
+              </div>
+              <div class="col-5 col-md-5">
+                <div class="tab">
+                  
                 </div>
+                <h1>mmb</h1>
+              </div>
+            </v-row>
             </form>
             <!-- <p>cash: {{ cash }}</p>
             <p>share: {{ share }}</p>
             <p>fund: {{ fund }}</p> -->
             <p>result: {{ result }}</p>
         </div>
-</div>
-
-</div>
-
-</template>
-
-<script>
+  </div>
+  
+  </div>
+  
+  </template>
+  
+  <script>
     import math from '../services/math';
     
     export default 
@@ -218,57 +230,57 @@
    
     
     
-</script>
-<style>
-.LiquidInvestment input{
+  </script>
+  <style>
+  .LiquidInvestment input{
     width: 300px;
     height: 40px;
     padding-left: 20px;
     display: block;
     margin-bottom: 30px;
-
+  
     margin-left: 10px;
     border: 1px solid skyblue;
-}
-/* .LiquidInvestment button{
+  }
+  /* .LiquidInvestment button{
     width: 220px;
     height: 40px;
     border: 1px solid black
-} */
-.tabs{
+  } */
+  .tabs{
     width: 900px;
     margin: 0 auto;
-}
-.nav-tabs{
+  }
+  .nav-tabs{
     display: flex;
     justify-content: left;
-}
-.nav-item{
+  }
+  .nav-item{
     cursor: pointer;
     width: 150px;
     background-color: aqua;
     text-align: center;
-
-}
-.tab-content{
+  
+  }
+  .tab-content{
     padding: 32px;
-
-}
-.for-example h1{
+  
+  }
+  .for-example h1{
     margin-top: 0;
-}
-.main {
+  }
+  .main {
     background-color: #b1b1b1;
     height: 100%;
-}
-.page {
+  }
+  .page {
     background-color: #ffffff;
     padding: 50px;
     margin: 50px;
     width: auto;
     border-radius: 50px;
-}
-.button {
+  }
+  .button {
   background-color: #04AA6D; /* Green */
   border: none;
   color: white;
@@ -277,5 +289,5 @@
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-}
-</style>
+  }
+  </style>
