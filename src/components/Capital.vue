@@ -95,6 +95,7 @@
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                         <button type="button" v-on:click="LiquidInvestment(cash, share, fund, pensions, pensionfund, derivatives,preciousmetal,other)">Ok</button>
                     </div>
@@ -152,7 +153,7 @@
     padding-left: 20px;
     display: block;
     margin-bottom: 30px;
-   
+
     margin-left: 10px;
     border: 1px solid skyblue;
 }
@@ -174,7 +175,7 @@
     width: 150px;
     background-color: aqua;
     text-align: center;
-    
+
 }
 .tab-content{
     padding: 32px;
