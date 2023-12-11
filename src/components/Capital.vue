@@ -1,3 +1,4 @@
+
 <template>
     <div class="d-flex flex-column main">
         <div class="page">
@@ -147,7 +148,13 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="button" v-on:click="LiquidInvestment(cash, share, fund, pensions, pensionfund, derivatives,preciousmetal,other)">Ok</button>
+                        <button type="button" v-on:click="calculate(
+                            cash, share, fund, pensions, pensionfund, derivatives, preciousmetal, other, 
+                            OwnerOccupiedProperty, RentedResidentialProperties, RentedCommercialProperties,UndevelopedLots, ClosedRealEstateFunds,OpenRealEstateFunds,other2,
+                            ActiveParticipations, NotActiveParticipations,
+                            CapitalBuildingInsurance, LeasingFund, ArtAndCollections, Claims, other3,
+                            ObjectRelatedLiabilities, NonPropertyRelatedLiabilities, Provisions,
+                            ReservedEquityForConsumption, ReservedEquityCapitalForPensionProvision)">Ok</button>
                     </div>
                 </div>
             </form>
@@ -163,14 +170,19 @@
 </template>
 
 <script>
+    import math from '../services/math';
+    
     export default 
     {
         name: 'Capital',
         data(){
             return{
-                cash: '', share: '', fund: '', pensions:'', pensionfund:'', derivatives:'', preciousmetal:'', other:'', OwnerOccupiedProperty:'', RentedResidentialProperties:'', RentedCommercialProperties:'',UndevelopedLots:'',
-                ClosedRealEstateFunds:'',OpenRealEstateFunds:'',other2:'',ActiveParticipations: '', NotActiveParticipations:'',
-                result: ''
+                cash: 0, share: 0, fund: 0, pensions:0, pensionfund:0, derivatives:0, preciousmetal:0, other:0, 
+                OwnerOccupiedProperty:0, RentedResidentialProperties:0, RentedCommercialProperties:0,UndevelopedLots:0, ClosedRealEstateFunds:0,OpenRealEstateFunds:0,other2:0,
+                ActiveParticipations: 0, NotActiveParticipations:0,
+                CapitalBuildingInsurance: 0, LeasingFund: 0, ArtAndCollections: 0, Claims: 0, other3: 0,
+                ObjectRelatedLiabilities: 0, NonPropertyRelatedLiabilities: 0, Provisions: 0,
+                ReservedEquityForConsumption:0, ReservedEquityCapitalForPensionProvision:0,
             }
         },
         data:() =>({
@@ -179,19 +191,30 @@
         ,
         methods:
         {
+            
             setActive(tab){
                 this.activeTab = tab
             },
             isActive(tab){
                 return this.activeTab ==tab;
             },
-            LiquidInvestment(n1,n2,n3,n4,n5,n6,n7,n8)
+            calculate(a1,a2,a3,a4,a5,a6,a7,a8,b1,b2,b3,b4,b5,b6,b7,c1,c2,d1,d2,d3,d4,d5,e1,e2,e3,f1,f2)
             {
-                this.result = n1 + n2 + n3+n4+n5+n6+n7+n8;
-            }
+                var meth =new math();
+                var BalanceSheet = meth.LiquidInvestment(a1,a2,a3,a4,a5,a6,a7,a8) + meth.RealEsate(b1,b2,b3,b4,b5,b6,b7) + meth.CoporateHolding(c1,c2) + meth.OtherAsset(d1,d2,d3,d4,d5);
+                var FreeEquity = BalanceSheet - (meth.Liabilities(e1,e2,e3) + meth.ReservedEquity(f1,f2));
+                console.log("Balancesheet = " + BalanceSheet);
+                console.log("FreeEquity = " + FreeEquity);
+                
+            },
+            
         }
         
+        
     }
+    // import math from '../services/math';
+    // var a = new math();
+    // console.log(a.plus(cash,share))
    
     
     
