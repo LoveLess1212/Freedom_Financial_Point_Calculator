@@ -1,9 +1,9 @@
 <script>
-import test from "./test.vue";
 import Step1 from "./LifeChartStep/Step 1.vue";
 import Step2 from "./LifeChartStep/Step2.vue";
+import Step3 from "./LifeChartStep/Step3.vue";
 import PieChart from "./LifeChartStep/PieChart.vue";
-
+import test from "./test.vue";
 export default {
   name: 'MainStep',
 
@@ -11,7 +11,8 @@ export default {
     Step2,
     Step1,
     test,
-    PieChart
+    PieChart,
+    Step3
   },
   data() {
     return {
@@ -52,7 +53,10 @@ export default {
           <Step2/>
         </v-stepper-window-item>
         <v-stepper-window-item value="3">
-          <PieChart/>
+          <Step3/>
+        </v-stepper-window-item>
+        <v-stepper-window-item value="4">
+          <test/>
         </v-stepper-window-item>
       </v-stepper-window>
       <v-stepper-actions class="bg-amber-lighten-4 pt-2" color="amber-darken-2"

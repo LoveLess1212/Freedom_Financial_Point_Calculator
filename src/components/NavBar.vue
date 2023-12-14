@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <v-app-bar :elevation="5" rounded floating="true" >
+    <v-app-bar :elevation="5" rounded >
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
       <v-app-bar-title> Freedom Financial with Crypto Investing</v-app-bar-title>
       <template v-slot:append>
