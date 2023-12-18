@@ -1,5 +1,5 @@
 <script>
-import Step1 from "./LifeChartStep/Step 1.vue";
+import Step1 from "./LifeChartStep/Step1.vue";
 import Step2 from "./LifeChartStep/Step2.vue";
 import Step3 from "./LifeChartStep/Step3.vue";
 import PieChart from "./LifeChartStep/PieChart.vue";
@@ -17,25 +17,37 @@ export default {
   data() {
     return {
       StepState: 0,
+      oldStage: 0,
     }
+  },
+  methods: {
+    handleStepChange(newStep) {
+      // Function to run when the step is changed
+      console.log("Step changed from " + this.oldStage + " to " + newStep);
+      this.oldStage = newStep;
+      this.$emit
+    },
   },
   computed: {
     disabled() {
       return this.StepState === 1 ? 'prev' : this.StepState === 3 ? 'next' : undefined
     }
-  }
+  },
+  watch: {
+    StepState(newStep) {
+      this.handleStepChange(newStep);
+    },
+  },
 }
 
 </script>
 
 <template>
-  <v-stepper v-model="StepState" editable>
+  <v-stepper v-model="StepState" editable >
     <template v-slot:default="{ prev, next }">
       <v-stepper-header>
         <v-stepper-item value="1" title="Basic Information"></v-stepper-item>
-
         <v-divider></v-divider>
-
         <v-stepper-item value="2" title="Balance Sheet"></v-stepper-item>
 
         <v-divider></v-divider>

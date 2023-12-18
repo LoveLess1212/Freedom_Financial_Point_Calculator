@@ -178,6 +178,9 @@ export default {
       if (this.steps < 10) {
         this.steps++;
         this.tab = `stage${this.steps}`;
+        if (this.stagesValue[this.steps - 1].ageEnd < this.stagesValue[this.steps - 1].ageStart) {
+          alert("The end of the period must be greater than start of the period");}
+        else{
         this.stagesValue.push({
           ageStart: ref(),
           ageEnd: ref(), // this should be the end age that user already specified
@@ -195,12 +198,14 @@ export default {
           }
         }),
           this.stagesValue[this.steps - 1].ageStart = this.stagesValue[this.steps - 2].ageEnd;
+        }
       }
     },
     reduceTab() {
       if (this.steps > 1) {
         this.steps--;
         this.tab = `stage${this.steps}`;
+        this.stagesValue.pop();
       }
     }
   },
