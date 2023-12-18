@@ -1,7 +1,10 @@
 import express, { json } from 'express'
 import { connect, Schema, model } from 'mongoose'
-
+import cors from 'cors'
+// const cors = require('cors')
 const app = express()
+app.use(cors())
+
 app.use(json())
 const connectDb = async () =>{
     try
@@ -13,18 +16,38 @@ const connectDb = async () =>{
 }
 
 const UserSchema = new Schema({
-    // name: String,
-    data: Number
+    salution: String,
+    FirstName: String,
+    Birth:Date,
+    LastName: String,
+    age: Number,
+    ExpectedAge:Number,
+    Cash:Number,
+    Investment:Number,
+    RealEstate: Number,
+    Business:Number,
+    OtherAsset:Number,
+    Mortgage:Number,
+    StudentLoan:Number,
+    CreditCard:Number,
+    OtherLiabilities:Number,
+    
 })
 
 const UserModel = model("invest", UserSchema)
+
+// async function updateData(){
+//     const collection = connectDb.collection('invest')
+// }
+
 
 app.get("/getData",async (req, res) => {
     res.json( await UserModel.find())
 })
 
 app.post("/postData", async (req, res) =>{
-    let data = new UserModel({data:10});
+    let any = req.body;
+    let data = new UserModel(any);
     const result = await data.save();
     res.json(result)
 })
