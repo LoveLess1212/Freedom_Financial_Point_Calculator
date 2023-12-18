@@ -1,5 +1,5 @@
 import express, { json } from 'express'
-import { connect, Schema, model } from 'mongoose'
+import mongoose, { connect, Schema, model } from 'mongoose'
 import cors from 'cors'
 // const cors = require('cors')
 const app = express()
@@ -15,23 +15,47 @@ const connectDb = async () =>{
     }
 }
 
+var BalanceSchema = new mongoose.Schema({
+    // Balance:[mongoose.Schema.Types.Mixed],
+    Stage:[mongoose.Schema.Types.Mixed]
+});
+
 const UserSchema = new Schema({
     salution: String,
     FirstName: String,
-    Birth:Date,
-    LastName: String,
-    age: Number,
-    ExpectedAge:Number,
-    Cash:Number,
-    Investment:Number,
-    RealEstate: Number,
-    Business:Number,
-    OtherAsset:Number,
-    Mortgage:Number,
-    StudentLoan:Number,
-    CreditCard:Number,
-    OtherLiabilities:Number,
+    LastName: String, 
+    Age: Number,
+    expectedAge:Number,
+
+    Balance: {
+        Cash:Number,
+        Investment:Number,
+        RealEstate: Number,
+        Business:Number,
+        OtherAsset:Number,
+        StudentLoan:Number,
+        CreditCard:Number,
+        OtherLiability:Number,
+    },
+    Stage: [{
+        StageIndex: Number,
+        StartAge: Number,
+        EndAge: Number,
+        Income: {
+            Dependent: Number,
+            SelfEmploy: Number,
+            Renting: Number,
+            Other: Number,
+        },
+        Expense: {
+            Tax: Number,
+            DailyLife: Number,
+            Maintenance: Number,
+            Other: Number,
+        },
+    }]
     
+
 })
 
 const UserModel = model("invest", UserSchema)
