@@ -1,15 +1,15 @@
 <script>
 import { ref } from 'vue';
 import {useDate} from "vuetify";
-
+import { store } from '../../services/store';
 export default {
   name: 'Step1',
   data(){
     return {
-      salutation: '',
-      firstName: '',
-      lastName: '',
-      selectedDate: null,
+      salutation: ref(''),
+      firstName: ref(''),
+      lastName: ref(''),
+      selectedDate: ref(new Date()),
       showDatePicker: false,
       firstNameRules: [
         v => !!v || 'First name is required',
@@ -33,9 +33,8 @@ export default {
       this.showDatePicker = true
   },
   },
-  mounted() {
+  
 
-  }
 
 }
 
