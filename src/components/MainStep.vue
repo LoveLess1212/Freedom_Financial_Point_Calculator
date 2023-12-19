@@ -22,31 +22,31 @@ export default {
     }
   },
   methods: {
-    handleStepChange(newStep) {
-      // Function to run when the step is changed
-      // console.log("Step changed from " + this.oldStage + " to " + newStep);
-      if (this.oldStage === 1) { 
-        this.emitter.emit('step1');
-        console.log("emitted to step1")
-        }
-      if (this.oldStage === 2)  this.emitter.emit('step2');
-      if (this.oldStage === 3)  this.emitter.emit('step3');
-      if (this.oldStage === 4)  this.emitter.emit('step4');
-      this.oldStage = newStep;
-    }
+    // handleStepChange(newStep) {
+    //   // Function to run when the step is changed
+    //   // console.log("Step changed from " + this.oldStage + " to " + newStep);
+    //   if (this.oldStage === 1) { 
+    //     this.emitter.emit('step1');
+    //     console.log("emitted to step1")
+    //     }
+    //   if (this.oldStage === 2)  this.emitter.emit('step2');
+    //   if (this.oldStage === 3)  this.emitter.emit('step3');
+    //   if (this.oldStage === 4)  this.emitter.emit('step4');
+    //   this.oldStage = newStep;
+    // }
   },
   computed: {
     disabled() {
       return this.StepState === 1 ? 'prev' : this.StepState === 3 ? 'next' : undefined
     }
   },
-  watch: {
-    StepState(newStep) {
-      console.log("Step changed\n Old step: " + this.oldStage + "\n New step: " + newStep)
-      this.handleStepChange(newStep);
+  // watch: {
+  //   // StepState(newStep) {
+  //   //   console.log("Step changed\n Old step: " + this.oldStage + "\n New step: " + newStep)
+  //   //   this.handleStepChange(newStep);
       
-    },
-  },
+  //   // },
+  // },
 }
 
 </script>
@@ -67,11 +67,9 @@ export default {
       </v-stepper-header>
 
       <v-stepper-window>
-        <KeepAlive>
         <v-stepper-window-item value="1" class="bg-amber-lighten-5">
           <Step1/>
         </v-stepper-window-item>
-      </KeepAlive>
         <v-stepper-window-item value="2">
           <Step2/>
         </v-stepper-window-item>
