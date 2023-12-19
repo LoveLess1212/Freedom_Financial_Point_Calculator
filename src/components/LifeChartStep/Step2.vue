@@ -48,7 +48,7 @@ components: {
       let Real_EstatePercent = parseInt(this.Real_Estate) / parseInt(this.TotalAssets) * 100
       let BusinessPercent = parseInt(this.Business) / parseInt(this.TotalAssets) * 100
       let OtherAssetsPercent = parseInt(this.OtherAssets) / parseInt(this.TotalAssets) * 100
-      console.log(typeof(CashPercent))
+      // console.log(typeof(CashPercent))
       return {
         labels: ['Cash', 'Investment', 'Real Estate', 'Business', 'Other'],
         datasets: [
@@ -77,7 +77,7 @@ components: {
         ]
       } 
       
-    }
+    },
     
   },
 

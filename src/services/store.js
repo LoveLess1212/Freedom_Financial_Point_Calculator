@@ -1,10 +1,11 @@
 import {reactive} from 'vue'
+
 export const store = reactive({
     user: {
         salutation: '',
-        FirstName: '',
-        LastName: '',
-        Age: 0,
+        firstName: '',
+        lastName: '',
+        age: 0,
         expectedAge: 0,
     },
     Balance:{
@@ -17,6 +18,7 @@ export const store = reactive({
         StudentLoan: 0,
         CreditCard: 0,
         OtherLiability: 0,
+        FreeEquity: 0,
     },
     Stage:[{
         StageIndex: 1,

@@ -16,11 +16,10 @@ export default {
   data(){
     return{
       salutation: store.user.salutation,
-      firstName: store.user.FirstName,
-      lastName: store.user.LastName,
-      Age: store.user.Age,
+      firstName: store.user.firstName,
+      lastName: store.user.lastName,
+      Age: store.user.age,
       expectedAge: store.user.expectedAge,
-
     }
   },
   methods:{

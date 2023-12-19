@@ -12,6 +12,7 @@
     "@mdi/font": "5.9.55",
     "chart.js": "^4.4.1",
     "express": "^4.18.2",
+    "mitt": "^1.0.1",
     "mongoose": "^8.0.3",
     "roboto-fontface": "*",
     "vue": "^3.3.4",
