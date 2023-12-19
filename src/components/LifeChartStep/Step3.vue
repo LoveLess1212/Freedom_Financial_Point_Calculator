@@ -178,7 +178,7 @@ export default {
       if (this.steps < 10) {
         this.steps++;
         this.tab = `stage${this.steps}`;
-        if (this.stagesValue[this.steps - 1].ageEnd < this.stagesValue[this.steps - 1].ageStart) {
+        if (this.stagesValue[this.steps - 2].ageEnd < this.stagesValue[this.steps - 2].ageStart) {
           alert("The end of the period must be greater than start of the period");}
         else{
         this.stagesValue.push({
@@ -200,6 +200,7 @@ export default {
           this.stagesValue[this.steps - 1].ageStart = this.stagesValue[this.steps - 2].ageEnd;
         }
       }
+      console.log("new stage added")
     },
     reduceTab() {
       if (this.steps > 1) {
