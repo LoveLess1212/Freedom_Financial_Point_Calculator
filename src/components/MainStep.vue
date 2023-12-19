@@ -4,6 +4,7 @@ import Step2 from "./LifeChartStep/Step2.vue";
 import Step3 from "./LifeChartStep/Step3.vue";
 import PieChart from "./LifeChartStep/PieChart.vue";
 import test from "./test.vue";
+
 export default {
   name: 'MainStep',
 
@@ -17,16 +18,22 @@ export default {
   data() {
     return {
       StepState: 0,
-      oldStage: 0,
+      oldStage: 1,
     }
   },
   methods: {
     handleStepChange(newStep) {
       // Function to run when the step is changed
-      console.log("Step changed from " + this.oldStage + " to " + newStep);
+      // console.log("Step changed from " + this.oldStage + " to " + newStep);
+      if (this.oldStage === 1) { 
+        this.emitter.emit('step1');
+        console.log("emitted to step1")
+        }
+      if (this.oldStage === 2)  this.emitter.emit('step2');
+      if (this.oldStage === 3)  this.emitter.emit('step3');
+      if (this.oldStage === 4)  this.emitter.emit('step4');
       this.oldStage = newStep;
-      this.$emit
-    },
+    }
   },
   computed: {
     disabled() {
@@ -35,7 +42,9 @@ export default {
   },
   watch: {
     StepState(newStep) {
+      console.log("Step changed\n Old step: " + this.oldStage + "\n New step: " + newStep)
       this.handleStepChange(newStep);
+      
     },
   },
 }
@@ -43,7 +52,7 @@ export default {
 </script>
 
 <template>
-  <v-stepper v-model="StepState" editable >
+  <v-stepper v-model="StepState" editable>
     <template v-slot:default="{ prev, next }">
       <v-stepper-header>
         <v-stepper-item value="1" title="Basic Information"></v-stepper-item>
@@ -58,9 +67,11 @@ export default {
       </v-stepper-header>
 
       <v-stepper-window>
+        <KeepAlive>
         <v-stepper-window-item value="1" class="bg-amber-lighten-5">
           <Step1/>
         </v-stepper-window-item>
+      </KeepAlive>
         <v-stepper-window-item value="2">
           <Step2/>
         </v-stepper-window-item>
@@ -76,6 +87,7 @@ export default {
                          @click:prev="prev"
                          @click:next="next">
       </v-stepper-actions>
+        
     </template>
   </v-stepper>
 </template>
