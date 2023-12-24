@@ -1,14 +1,12 @@
 import {reactive} from 'vue'
-
-export const store = reactive({
-    user: {
+export const user = reactive({    
         salutation: '',
         firstName: '',
         lastName: '',
         age: 0,
         expectedAge: 0,
-    },
-    Balance:{
+    })
+export const asset = reactive({
         Cash: 0,
         Investment: 0,
         RealEstate: 0,
@@ -19,22 +17,17 @@ export const store = reactive({
         CreditCard: 0,
         OtherLiability: 0,
         FreeEquity: 0,
-    },
-    Stage:[{
+    })
+export const income = reactive([{
         StageIndex: 1,
         StartAge: 0,
         EndAge: 0,
-        Income: {
-            Dependent: 0,
-            SelfEmploy: 0,
-            Renting: 0,
-            Other: 0,
-        },
-        Expense: {
-            Tax: 0,
-            DailyLife: 0,
-            Maintenance: 0,
-            Other: 0,
-        },
-    }]
-})
+        IncomeDependent: 0,
+        IncomeSelfEmploy: 0,
+        IncomeRenting: 0,
+        InceomOther: 0,
+        ExpenseTax: 0,
+        ExpenseDailyLife: 0,
+        ExpenseMaintenance: 0,
+        ExpenseOther: 0,
+    }])

@@ -1,5 +1,6 @@
 <script>
 import {ref} from "vue";
+import { asset as store } from "../../services/store";
 import PieChart from "./PieChart.vue";
 export default {
   name: "Step2",
@@ -31,6 +32,9 @@ components: {
   }
   ,
   data() {
+    return{
+      
+    }
   },
   computed: {
     TotalAssets() {
@@ -59,7 +63,6 @@ components: {
           }
         ]
       } 
-      
     },
     DataLiab(){
       let MortgagePercent = parseInt(this.Mortgage) / parseInt(this.TotalLiab) * 100
@@ -76,10 +79,21 @@ components: {
           }
         ]
       } 
-      
     },
-    
   },
+  methods:{
+    modifyData(){
+      store.Cash = this.Cash
+      store.Investment = this.Investment
+      store.Business = this.Business
+      store.RealEstate = this.Real_Estate
+      store.Mortgage = this.Mortgage
+      store.StudentLoan = this.Loan
+      store.CreditCard = this.CreditCard
+      store.OtherLiab = this.otherLiab
+      store.FreeEquity = this.FreeEquity
+    }
+  }
 
 }
 </script>
@@ -224,6 +238,7 @@ components: {
             </v-row>
           </v-card-text>
         </v-card>
+        <v-btn color="primary" @click="modifyData">Apply Change</v-btn>
       </v-col>
       <v-col cols="7" id="RightData">
         <v-card>

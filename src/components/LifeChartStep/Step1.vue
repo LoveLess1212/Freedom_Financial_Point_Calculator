@@ -1,7 +1,7 @@
 <script>
 import { ref } from 'vue';
 import {useDate} from "vuetify";
-import { store } from '../../services/store';
+import { user as store } from '../../services/store';
 export default {
   name: 'Step1',
   data(){
@@ -32,24 +32,22 @@ export default {
     test(){
       this.showDatePicker = true
   },
-  modifyData(){
-    let tempAge = this.age;
-    store.user.salutation = this.salutation
-    store.user.firstName = this.firstName
-    store.user.lastName = this.lastName
-    store.user.dateOfBirth = this.selectedDate
-    store.user.age = tempAge
-    store.user.expectedAge = this.expectedAge
-  }
-    
-  }
+    modifyData(){
+      store.salutation = this.salutation
+      store.firstName = this.firstName
+      store.lastName = this.lastName
+      store.dateOfBirth = this.selectedDate
+      store.age = this.age
+      store.expectedAge = this.expectedAge
+      console.log(store)
+    }
+},
+  
 }
-
-
-
 </script>
 
 <template>
+  <div @v-on:saveData="modifyData"></div>
   <v-container class="text-center "  >
         <h2 class=" py-4 text-h2"> Basic information</h2>
         <v-sheet width="500" class="mx-auto px-3 py-3">
@@ -70,8 +68,6 @@ export default {
                 label="Last name"
                 :rules="lastNameRules"
             ></v-text-field>
-
-
             <v-text-field label="Date of birth" v-model="formattedDate" @click="test" ></v-text-field>
             <v-row justify="space-around" class="d-flex">
             <v-date-picker color="primary" format="MMMM DD, YYYY"  v-show="showDatePicker" v-model="selectedDate" @mouseleave="showDatePicker = false"></v-date-picker>

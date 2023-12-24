@@ -22,37 +22,19 @@ export default {
     }
   },
   methods: {
-    // handleStepChange(newStep) {
-    //   // Function to run when the step is changed
-    //   // console.log("Step changed from " + this.oldStage + " to " + newStep);
-    //   if (this.oldStage === 1) { 
-    //     this.emitter.emit('step1');
-    //     console.log("emitted to step1")
-    //     }
-    //   if (this.oldStage === 2)  this.emitter.emit('step2');
-    //   if (this.oldStage === 3)  this.emitter.emit('step3');
-    //   if (this.oldStage === 4)  this.emitter.emit('step4');
-    //   this.oldStage = newStep;
-    // }
   },
   computed: {
     disabled() {
       return this.StepState === 1 ? 'prev' : this.StepState === 3 ? 'next' : undefined
     }
   },
-  // watch: {
-  //   // StepState(newStep) {
-  //   //   console.log("Step changed\n Old step: " + this.oldStage + "\n New step: " + newStep)
-  //   //   this.handleStepChange(newStep);
-      
-  //   // },
-  // },
+
 }
 
 </script>
 
 <template>
-  <v-stepper v-model="StepState" editable>
+  <v-stepper v-model="StepState" editable @change="$emit('saveData'); console.log('emit Savedata')">
     <template v-slot:default="{ prev, next }">
       <v-stepper-header>
         <v-stepper-item value="1" title="Basic Information"></v-stepper-item>
@@ -82,6 +64,7 @@ export default {
       </v-stepper-window>
       <v-stepper-actions class="bg-amber-lighten-4 pt-2" color="amber-darken-2"
           :disabled="disabled"
+                          
                          @click:prev="prev"
                          @click:next="next">
       </v-stepper-actions>
