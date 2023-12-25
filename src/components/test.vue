@@ -1,38 +1,34 @@
 <template>
-  <div>
-    <h1>Data from MongoDB</h1>
-    
-    <ul>
-      <li v-for="item in items" :key="item._id">
-        {{ item.salution }} - {{ item.FirstName }}
-      </li>
-    </ul>
-  </div>
+<!--  list all the data out-->
+  <ul>
+    <li>First name from Watch: {{user.firstName }}</li>
+    <li>Last name from Watch: {{ user.lastName }}</li>
+    <li>Age from Watch: {{ user.age }}</li>
+  </ul>
+
 </template>
 
 <script>
-import axios from 'axios';
-
+import {store} from "../services/store.js";
 export default {
-  data() {
-    return {
-      items: []
-    };
+  name: 'LifeChart',
+  data(){
+    return{
+      salutation: store.user.salutation,
+      firstName: store.user.firstName,
+      lastName: store.user.lastName,
+      Age: store.user.age,
+      expectedAge: store.user.expectedAge,
+    }
+  },
+  methods:{
+    test(){
+      console.log(this.chartData)
+    }
   },
   mounted() {
-    this.fetchData();
+    console.log(this.chartData)
   },
-  methods: {
-    fetchData() {
-      const url = 'http://localhost:5000/getData'; // Local server URL
-      axios.get(url)
-        .then(response => {
-          this.items = response.data;
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    }
-  }
-};
+
+}
 </script>

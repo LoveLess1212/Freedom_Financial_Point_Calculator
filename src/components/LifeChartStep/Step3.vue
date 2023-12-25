@@ -77,9 +77,6 @@
                     <v-col cols="12" md="6">
                       <v-text-field v-model="stagesValue[n - 1].income.other" label="Other" type="number"
                         @focus="$event.target.select()">
-
-
-
                       </v-text-field>
                     </v-col>
                   </v-row>
@@ -93,7 +90,6 @@
                             <template v-slot:activator="{ props }">
                               <v-icon v-bind="props" icon="mdi-help-circle-outline"></v-icon>
                             </template>
-
                             <span> Tax expense is the tax that you need to pay.</span>
                           </v-tooltip>
                         </template>
@@ -133,11 +129,12 @@
                         @focus="$event.target.select()"></v-text-field>
                     </v-col>
                   </v-row>
+                  <!-- <p> age: {{ store.age }}</p> -->
                 </v-card-text>
               </v-card>
             </v-col>
             <v-col cols="7">
-              <BarChartStep3 :data="passData"/>
+              <BarChartStep3 :data="passData" />
             </v-col>
           </v-row>
         </v-window-item>
@@ -148,47 +145,24 @@
 <script>
 import { ref } from "vue";
 import BarChartStep3 from "./BarChartStep3.vue";
+import { user as store } from "../../services/store.js";
 export default {
   components: {
     BarChartStep3
   },
-  data: () => ({
-    tab: 'stage1',
-    steps: 1,
-    stagesValue: [
-      {
-        ageStart: ref(1), // this should be the start age that user already specified
-        ageEnd: ref(),
-        income: {
+  data() {
+    return {
+      tab: 'stage1',
+      steps: 1,
+      stagesValue: [
+        {
+          ageStart: store.age, // Idk why the store.age is not reactive regarardless of using ref, watch, computed...., but you call the store.age directly on the template, it will be reactive :D WTF really? wtf
+          ageEnd: store.expectedAge, // same as above
+          income: {
           dependent: ref(0),
           selfEmploy: ref(0),
           renting: ref(0),
           other: ref(0),
-        },
-        expense: {
-          tax: ref(0),
-          dailyLife: ref(0),
-          maintenance: ref(0),
-          other: ref(0),
-        }
-      }]
-  }),
-  methods: {
-    addTab() {
-      if (this.steps < 10) {
-        this.steps++;
-        this.tab = `stage${this.steps}`;
-        if (this.stagesValue[this.steps - 2].ageEnd < this.stagesValue[this.steps - 2].ageStart) {
-          alert("The end of the period must be greater than start of the period");}
-        else{
-        this.stagesValue.push({
-          ageStart: ref(),
-          ageEnd: ref(), // this should be the end age that user already specified
-          income: {
-            dependent: ref(0),
-            selfEmploy: ref(0),
-            renting: ref(0),
-            other: ref(0),
           },
           expense: {
             tax: ref(0),
@@ -196,8 +170,35 @@ export default {
             maintenance: ref(0),
             other: ref(0),
           }
-        }),
-          this.stagesValue[this.steps - 1].ageStart = this.stagesValue[this.steps - 2].ageEnd;
+        }],
+    }
+  },
+  methods: {
+    addTab() {
+      if (this.steps < 10) {
+        this.steps++;
+        this.tab = `stage${this.steps}`;
+        if (this.stagesValue[this.steps - 2].ageEnd < this.stagesValue[this.steps - 2].ageStart) {
+          alert("The end of the period must be greater than start of the period");
+        }
+        else {
+          this.stagesValue.push({
+            ageStart: ref(),
+            ageEnd: store.expectedAge,
+            income: {
+              dependent: ref(0),
+              selfEmploy: ref(0),
+              renting: ref(0),
+              other: ref(0),
+            },
+            expense: {
+              tax: ref(0),
+              dailyLife: ref(0),
+              maintenance: ref(0),
+              other: ref(0),
+            }
+          }),
+            this.stagesValue[this.steps - 1].ageStart = this.stagesValue[this.steps - 2].ageEnd;
         }
       }
       console.log("new stage added")
@@ -211,7 +212,7 @@ export default {
     }
   },
   computed: {
-    passData(){
+    passData() {
       let stagesValue = this.stagesValue[this.steps - 1]
       let income = parseInt(stagesValue.income.dependent) + parseInt(stagesValue.income.selfEmploy) + parseInt(stagesValue.income.renting) + parseInt(stagesValue.income.other)
       let expense = parseInt(stagesValue.expense.tax) + parseInt(stagesValue.expense.dailyLife) + parseInt(stagesValue.expense.maintenance) + parseInt(stagesValue.expense.other)
@@ -227,7 +228,17 @@ export default {
         ]
 
       }
-    }
+    },
+
+  },
+  watch: {
+    store: {
+      handler() {
+        this.stagesValue[0].ageStart = store.age
+        this.stagesValue[0].ageEnd = store.expectedAge
+      },
+      deep: true
+    },
   }
 }
 </script>

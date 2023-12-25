@@ -22,14 +22,12 @@ import Test from "./components/test.vue";
 
 export default {
   name: 'App',
-
   components: {
     Test,
     MainStep,
     Footer,
     NavBar,
     Capital,
-
   },
   data: () => ({
 
