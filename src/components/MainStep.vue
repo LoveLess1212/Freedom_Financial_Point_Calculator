@@ -4,11 +4,13 @@ import Step2 from "./LifeChartStep/Step2.vue";
 import Step3 from "./LifeChartStep/Step3.vue";
 import PieChart from "./LifeChartStep/PieChart.vue";
 import test from "./test.vue";
+import Step4 from "./LifeChartStep/Step4.vue";
 
 export default {
   name: 'MainStep',
 
   components: {
+    Step4,
     Step2,
     Step1,
     test,
@@ -46,6 +48,8 @@ export default {
         <v-stepper-item value="3" title="Life Period"></v-stepper-item>
         <v-divider></v-divider>
         <v-stepper-item value="4" title="Freedom Point"></v-stepper-item>
+        <v-divider></v-divider>
+        <v-stepper-item value="5" title="test"></v-stepper-item>
       </v-stepper-header>
 
       <v-stepper-window>
@@ -59,6 +63,9 @@ export default {
           <Step3/>
         </v-stepper-window-item>
         <v-stepper-window-item value="4">
+          <step4/>
+        </v-stepper-window-item>
+        <v-stepper-window-item value="5">
           <test/>
         </v-stepper-window-item>
       </v-stepper-window>

@@ -20,17 +20,16 @@
                 <v-card-text>
                   <v-row>
                     <v-col cols="12" md="6">
-                      <v-text-field v-model="stagesValue[n - 1].ageStart" label="Start Age" type="number"
-                        disabled></v-text-field>
+                      <v-text-field v-model="ageStart" label="Start Age" type="number" disabled></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
-                      <v-text-field v-model="stagesValue[n - 1].ageEnd" label="End Age" type="number"></v-text-field>
+                      <v-text-field v-model="ageEnd" label="End Age" type="number"></v-text-field>
                     </v-col>
                   </v-row>
                   <h5 class="text-h5">Income Per Year</h5>
                   <v-row>
                     <v-col cols="12" md="6">
-                      <v-text-field v-model="stagesValue[n - 1].income.dependent" label="Dependent" type="number"
+                      <v-text-field v-model="incomeDependent" label="Dependent" type="number"
                         @focus="$event.target.select()">
                         <template v-slot:prepend>
                           <v-tooltip location="bottom">
@@ -45,7 +44,7 @@
                       </v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
-                      <v-text-field v-model="stagesValue[n - 1].income.selfEmploy" label="Self Employ" type="number"
+                      <v-text-field v-model="incomeSelfEmploy" label="Self Employ" type="number"
                         @focus="$event.target.select()">
                         <template v-slot:prepend>
                           <v-tooltip location="bottom">
@@ -61,8 +60,7 @@
                   </v-row>
                   <v-row>
                     <v-col cols="12" md="6">
-                      <v-text-field v-model="stagesValue[n - 1].income.renting" label="Renting" type="number"
-                        @focus="$event.target.select()">
+                      <v-text-field v-model="incomeRenting" label="Renting" type="number" @focus="$event.target.select()">
                         <template v-slot:prepend>
                           <v-tooltip location="bottom">
                             <template v-slot:activator="{ props }">
@@ -75,16 +73,14 @@
                       </v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
-                      <v-text-field v-model="stagesValue[n - 1].income.other" label="Other" type="number"
-                        @focus="$event.target.select()">
+                      <v-text-field v-model="incomeOther" label="Other" type="number" @focus="$event.target.select()">
                       </v-text-field>
                     </v-col>
                   </v-row>
                   <h5 class="text-h5">Expense per Year</h5>
                   <v-row>
                     <v-col cols="12" md="6">
-                      <v-text-field v-model="stagesValue[n - 1].expense.tax" label="Tax" type="number"
-                        @focus="$event.target.select()">
+                      <v-text-field v-model="expenseTax" label="Tax" type="number" @focus="$event.target.select()">
                         <template v-slot:prepend>
                           <v-tooltip location="bottom">
                             <template v-slot:activator="{ props }">
@@ -96,7 +92,7 @@
                       </v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
-                      <v-text-field v-model="stagesValue[n - 1].expense.dailyLife" label="Daily Life" type="number"
+                      <v-text-field v-model="expenseDailyLife" label="Daily Life" type="number"
                         @focus="$event.target.select()">
                         <template v-slot:prepend>
                           <v-tooltip location="bottom">
@@ -112,7 +108,7 @@
                   </v-row>
                   <v-row>
                     <v-col cols="12" md="6">
-                      <v-text-field v-model="stagesValue[n - 1].expense.maintenance" label="Maintenance" type="number"
+                      <v-text-field v-model="expenseMaintenance" label="Maintenance" type="number"
                         @focus="$event.target.select()"><template v-slot:prepend>
                           <v-tooltip location="bottom">
                             <template v-slot:activator="{ props }">
@@ -125,16 +121,16 @@
                         </template></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
-                      <v-text-field v-model="stagesValue[n - 1].expense.other" label="Other" type="number"
+                      <v-text-field v-model="expenseOther" label="Other" type="number"
                         @focus="$event.target.select()"></v-text-field>
                     </v-col>
                   </v-row>
-                  <!-- <p> age: {{ store.age }}</p> -->
+<!--                  <p> age: {{ user.age }}</p>-->
                 </v-card-text>
               </v-card>
             </v-col>
             <v-col cols="7">
-              <BarChartStep3 :data="passData" />
+              <!-- <BarChartStep3 :data="passData" /> -->
             </v-col>
           </v-row>
         </v-window-item>
@@ -144,64 +140,40 @@
 </template>
 <script>
 import { ref } from "vue";
-import BarChartStep3 from "./BarChartStep3.vue";
+// import BarChartStep3 from "./BarChartStep3.vue";
 import { user as store } from "../../services/store.js";
 export default {
   components: {
-    BarChartStep3
+    // BarChartStep3
   },
   data() {
     return {
       tab: 'stage1',
       steps: 1,
-      stagesValue: [
-        {
-          ageStart: store.age, // Idk why the store.age is not reactive regarardless of using ref, watch, computed...., but you call the store.age directly on the template, it will be reactive :D WTF really? wtf
-          ageEnd: store.expectedAge, // same as above
-          income: {
-          dependent: ref(0),
-          selfEmploy: ref(0),
-          renting: ref(0),
-          other: ref(0),
-          },
-          expense: {
-            tax: ref(0),
-            dailyLife: ref(0),
-            maintenance: ref(0),
-            other: ref(0),
-          }
-        }],
-    }
+      ageStart: ref(store.age),
+      ageEnd: ref(store.expectedAge),
+      incomeDependent: ref(0),
+      incomeSelfEmploy: ref(0),
+      incomeRenting: ref(0),
+      incomeOther: ref(0),
+      expenseTax: ref(0),
+      expenseDailyLife: ref(0),
+      expenseMaintenance: ref(0),
+      expenseOther: ref(0),
+      stages: []
+    };
   },
   methods: {
     addTab() {
       if (this.steps < 10) {
         this.steps++;
         this.tab = `stage${this.steps}`;
-        if (this.stagesValue[this.steps - 2].ageEnd < this.stagesValue[this.steps - 2].ageStart) {
+        if (this.ageEnd < this.ageStart) {
           alert("The end of the period must be greater than start of the period");
-        }
-        else {
-          this.stagesValue.push({
-            ageStart: ref(),
-            ageEnd: store.expectedAge,
-            income: {
-              dependent: ref(0),
-              selfEmploy: ref(0),
-              renting: ref(0),
-              other: ref(0),
-            },
-            expense: {
-              tax: ref(0),
-              dailyLife: ref(0),
-              maintenance: ref(0),
-              other: ref(0),
-            }
-          }),
-            this.stagesValue[this.steps - 1].ageStart = this.stagesValue[this.steps - 2].ageEnd;
+        } else {
+          this.pushStage();
         }
       }
-      console.log("new stage added")
     },
     reduceTab() {
       if (this.steps > 1) {
@@ -209,36 +181,49 @@ export default {
         this.tab = `stage${this.steps}`;
         this.stagesValue.pop();
       }
+    },
+    pushStage() {
+      const stage = {
+        ageStart: this.ageStart,
+        ageEnd: this.ageEnd,
+        income: {
+          dependent: this.incomeDependent,
+          selfEmploy: this.incomeSelfEmploy,
+          renting: this.incomeRenting,
+          other: this.incomeOther
+        },
+        expense: {
+          tax: this.expenseTax,
+          dailyLife: this.expenseDailyLife,
+          maintenance: this.expenseMaintenance,
+          other: this.expenseOther
+        }
+      };
+      this.stages.push(stage);
     }
   },
   computed: {
-    passData() {
-      let stagesValue = this.stagesValue[this.steps - 1]
-      let income = parseInt(stagesValue.income.dependent) + parseInt(stagesValue.income.selfEmploy) + parseInt(stagesValue.income.renting) + parseInt(stagesValue.income.other)
-      let expense = parseInt(stagesValue.expense.tax) + parseInt(stagesValue.expense.dailyLife) + parseInt(stagesValue.expense.maintenance) + parseInt(stagesValue.expense.other)
-      let saving = income - expense
-      return {
-        labels: ['income', 'expense', 'saving'],
-        datasets: [
-          {
-            label: '',
-            backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16', '#FFCE56'],
-            data: [income, expense, saving]
-          }
-        ]
+    // passData() {
+    //   let stagesValue = this.stagesValue[this.steps - 1]
+    //   let income = parseInt(stagesValue.income.dependent) + parseInt(stagesValue.income.selfEmploy) + parseInt(stagesValue.income.renting) + parseInt(stagesValue.income.other)
+    //   let expense = parseInt(stagesValue.expense.tax) + parseInt(stagesValue.expense.dailyLife) + parseInt(stagesValue.expense.maintenance) + parseInt(stagesValue.expense.other)
+    //   let saving = income - expense
+    //   return {
+    //     labels: ['income', 'expense', 'saving'],
+    //     datasets: [
+    //       {
+    //         label: '',
+    //         backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16', '#FFCE56'],
+    //         data: [income, expense, saving]
+    //       }
+    //     ]
 
-      }
-    },
+    //   }
+    // },
 
   },
   watch: {
-    store: {
-      handler() {
-        this.stagesValue[0].ageStart = store.age
-        this.stagesValue[0].ageEnd = store.expectedAge
-      },
-      deep: true
-    },
+
   }
 }
 </script>

@@ -1,0 +1,4 @@
+- add submit button to all step
+- fix reactive store
+- finish step 4
+- finish the add-ons
