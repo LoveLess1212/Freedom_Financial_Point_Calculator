@@ -237,8 +237,13 @@ components: {
               </v-col>
             </v-row>
           </v-card-text>
+          <v-card-text>
+            <v-container class="text-center">
+            <v-btn type="submit" block @click="modifyData" class="mt-0">Submit</v-btn>
+          </v-container>
+          </v-card-text>
         </v-card>
-        <v-btn color="primary" @click="modifyData">Apply Change</v-btn>
+        
       </v-col>
       <v-col cols="7" id="RightData">
         <v-card>

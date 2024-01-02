@@ -36,7 +36,7 @@ export default {
 </script>
 
 <template>
-  <v-stepper v-model="StepState" editable @change="$emit('saveData'); console.log('emit Savedata')">
+  <v-stepper v-model="StepState" editable >
     <template v-slot:default="{ prev, next }">
       <v-stepper-header>
         <v-stepper-item value="1" title="Basic Information"></v-stepper-item>
@@ -71,7 +71,6 @@ export default {
       </v-stepper-window>
       <v-stepper-actions class="bg-amber-lighten-4 pt-2" color="amber-darken-2"
           :disabled="disabled"
-                          
                          @click:prev="prev"
                          @click:next="next">
       </v-stepper-actions>
