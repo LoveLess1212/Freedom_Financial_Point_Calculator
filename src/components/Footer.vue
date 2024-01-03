@@ -1,10 +1,28 @@
+/**
+ * Component: Footer
+ * Description: This component represents the footer section of the application.
+ * It displays links and copyright information.
+ *
+ * Props:
+ * - None
+ *
+ * Data:
+ * - links: An array of strings representing the links to be displayed in the footer.
+ *
+ * Methods:
+ * - None
+ *
+ * Usage:
+ * <Footer></Footer>
+ */
+
 <script setup>
 const links = [
     'About Us',
     'Contact Us',
     'Legal',
     'Privacy Policy',
-  ]
+]
 </script>
 
 <template>
@@ -25,7 +43,6 @@ const links = [
       </v-col>
     </v-row>
   </v-footer>
-
 </template>
 
 <style scoped>

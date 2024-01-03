@@ -1,3 +1,12 @@
+/**
+ * MainStep component represents the main step in a stepper component.
+ * It includes multiple sub-steps such as Step1, Step2, Step3, Step4, and test.
+ * The component manages the state of the current step and provides navigation between steps.
+ *
+ * @component
+ * @example
+ * <MainStep></MainStep>
+ */
 <script>
 import Step1 from "./LifeChartStep/Step1.vue";
 import Step2 from "./LifeChartStep/Step2.vue";

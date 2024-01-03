@@ -6,9 +6,9 @@
       </v-card-title>
       <v-card-text>
         <v-row>
-          <v-col cols="6">
+          <v-col cols="3">
             <v-row>
-              <v-col cols="6">
+              <v-col cols="9">
                 <v-text-field v-model="age" label="Plan Begin" disabled></v-text-field>
               </v-col>
               <v-col cols="6">
@@ -24,7 +24,7 @@
                   </v-row>
           </v-col>
 
-          <v-col cols="6">
+          <v-col cols="9">
             <v-row>
               <LifeChart :inflation="Inflation" :riseinmoney="RiseInValue"/>
             </v-row>
@@ -42,8 +42,8 @@ export default {
   components: {LifeChart},
   methods: {
     modifyData() {
-      user.inflation = this.Inflation;
-      user.riseInValue = this.RiseInValue;
+      user.inflation = parseInt(this.Inflation);
+      user.riseInValue = parseInt(this.RiseInValue);
     }
   },
   data() {

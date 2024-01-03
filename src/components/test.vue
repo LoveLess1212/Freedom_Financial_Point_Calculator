@@ -1,25 +1,37 @@
 <template>
-<!--  list all the data out-->
-  <ul>
-    <li>First name from Watch: {{user.firstName }}</li> 
-    <li>Last name from Watch: {{ user.lastName }}</li>
-    <li>Age from Watch: {{ user.age }}</li>
-  </ul>
-
+  <Line :data="data" :options="options" />
 </template>
-<script>
-import {user} from "../services/store.js";
+
+<script lang="ts">
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js'
+import { Line } from 'vue-chartjs'
+import * as chartConfig from './chartConfig.js'
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+)
+
 export default {
-  name: 'LifeChart',
-  data(){
-    return{
-        user: user
-    }
+  name: 'App',
+  components: {
+    Line
   },
-  // watch:{
-  //   'store.user'(newVal){
-  //       this.data = newVal
-  //     }
-  // }
+  data() {
+    return chartConfig
+  }
 }
 </script>
