@@ -19,14 +19,16 @@ export const asset = reactive({
         OtherLiability: 0,
         FreeEquity: 0,
     })
-export const income = reactive([{
+export const income = reactive(
+    [
+        {
         StageIndex: 1,
         StartAge: 0,
         EndAge: 0,
         IncomeDependent: 0,
         IncomeSelfEmploy: 0,
         IncomeRenting: 0,
-        InceomOther: 0,
+        IncomeOther: 0,
         ExpenseTax: 0,
         ExpenseDailyLife: 0,
         ExpenseMaintenance: 0,

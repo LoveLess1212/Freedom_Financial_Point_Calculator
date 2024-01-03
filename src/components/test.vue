@@ -1,7 +1,7 @@
 <template>
 <!--  list all the data out-->
   <ul>
-    <li>First name from Watch: {{user.firstName }}</li>
+    <li>First name from Watch: {{user.firstName }}</li> 
     <li>Last name from Watch: {{ user.lastName }}</li>
     <li>Age from Watch: {{ user.age }}</li>
   </ul>
@@ -14,11 +14,7 @@ export default {
   name: 'LifeChart',
   data(){
     return{
-      salutation: store.user.salutation,
-      firstName: store.user.firstName,
-      lastName: store.user.lastName,
-      Age: store.user.age,
-      expectedAge: store.user.expectedAge,
+        user: user
     }
   },
   methods:{

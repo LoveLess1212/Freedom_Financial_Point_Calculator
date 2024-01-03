@@ -129,7 +129,11 @@
                         @focus="$event.target.select()"></v-text-field>
                     </v-col>
                   </v-row>
-                  <!-- <p> age: {{ store.age }}</p> -->
+                  <v-row>
+                    <v-container class="text-center ">
+                      <v-btn type="submit" block @click="modifyData" class="mt-2">Submit</v-btn>
+                    </v-container>
+                  </v-row>
                 </v-card-text>
               </v-card>
             </v-col>
@@ -145,7 +149,7 @@
 <script>
 import { ref } from "vue";
 import BarChartStep3 from "./BarChartStep3.vue";
-import { user  } from "../../services/store.js";
+import { user as store, income as storeIncome } from "../../services/store.js";
 export default {
   components: {
     BarChartStep3
@@ -156,13 +160,13 @@ export default {
       steps: 1,
       stagesValue: [
         {
-          ageStart: user.age, // Idk why the store.age is not reactive regarardless of using ref, watch, computed...., but you call the store.age directly on the template, it will be reactive :D WTF really? wtf
-          ageEnd: user.expectedAge, // same as above
+          ageStart: store.age,
+          ageEnd: store.expectedAge, // same as above
           income: {
-          dependent: ref(0),
-          selfEmploy: ref(0),
-          renting: ref(0),
-          other: ref(0),
+            dependent: ref(0),
+            selfEmploy: ref(0),
+            renting: ref(0),
+            other: ref(0),
           },
           expense: {
             tax: ref(0),
@@ -209,11 +213,46 @@ export default {
         this.tab = `stage${this.steps}`;
         this.stagesValue.pop();
       }
+    },
+    //worked
+    modifyData() {
+      for (let i = 0; i < this.steps; i++) {
+        let data = {
+          StageIndex: i,
+          StartAge: this.stagesValue[i].ageStart,
+          EndAge: parseInt(this.stagesValue[i].ageEnd),
+          IncomeDependent: this.stagesValue[i].income.dependent,
+          IncomeSelfEmploy: this.stagesValue[i].income.selfEmploy,
+          IncomeRenting: this.stagesValue[i].income.renting,
+          IncomeOther: this.stagesValue[i].income.other,
+          ExpenseTax: this.stagesValue[i].expense.tax,
+          ExpenseDailyLife: this.stagesValue[i].expense.dailyLife,
+          ExpenseMaintenance: this.stagesValue[i].expense.maintenance,
+          ExpenseOther: this.stagesValue[i].expense.other,
+        }
+        if (i < storeIncome.length) {
+          storeIncome[i] = data
+        }
+        else {
+          storeIncome.push(data)
+        }
+        console.log("Income -> store")
+        console.log(storeIncome)
+        console.log("------------------")
+      }
     }
   },
   computed: {
+    //done 
     passData() {
-      let stagesValue = this.stagesValue[this.steps - 1]
+      // get the number out from this.tab
+      // console.log("using tab: " + String(this.tab).replace("stage",""))
+      // console.log("using steps " + this.steps)
+      let temp = parseInt(String(this.tab).replace("stage", ""))
+      // console.log(temp === (this.steps))
+      let index = temp === (this.steps) ? temp - 1 : temp
+      // console.log("index: " + index)
+      let stagesValue = this.stagesValue[index]
       let income = parseInt(stagesValue.income.dependent) + parseInt(stagesValue.income.selfEmploy) + parseInt(stagesValue.income.renting) + parseInt(stagesValue.income.other)
       let expense = parseInt(stagesValue.expense.tax) + parseInt(stagesValue.expense.dailyLife) + parseInt(stagesValue.expense.maintenance) + parseInt(stagesValue.expense.other)
       let saving = income - expense
@@ -229,16 +268,26 @@ export default {
 
       }
     },
+    ageEndValue() {
+      return store.expectedAge
+    },
+    ageStartvalue() {
+      if (this.steps === 1) {
+        return store.age
+      }
+      else {
+        return parseInt(this.stagesValue[this.steps - 2].ageEnd)
+      }
+    }
 
   },
   watch: {
-    store: {
-      handler() {
-        this.stagesValue[0].ageStart = user.age
-        this.stagesValue[0].ageEnd = user.expectedAge
-      },
-      deep: true
+    ageStartvalue(newValue, oldValue) {
+      this.stagesValue[this.steps - 1].ageStart = newValue
     },
+    ageEndValue(newValue, oldValue) {
+      this.stagesValue[this.steps - 1].ageEnd = newValue
+    }
   }
 }
 </script>

@@ -21,11 +21,13 @@ import Step2 from "./LifeChartStep/Step2.vue";
 import Step3 from "./LifeChartStep/Step3.vue";
 import PieChart from "./LifeChartStep/PieChart.vue";
 import test from "./test.vue";
+import Step4 from "./LifeChartStep/Step4.vue";
 
 export default {
   name: 'MainStep',
 
   components: {
+    Step4,
     Step2,
     Step1,
     test,
@@ -52,7 +54,7 @@ export default {
 </script>
 
 <template>
-  <v-stepper v-model="StepState" editable @change="$emit('saveData'); console.log('emit Savedata')">
+  <v-stepper v-model="StepState" editable >
     <template v-slot:default="{ prev, next }">
       <v-stepper-header>
         <v-stepper-item value="1" title="Basic Information"></v-stepper-item>
@@ -64,6 +66,8 @@ export default {
         <v-stepper-item value="3" title="Life Period"></v-stepper-item>
         <v-divider></v-divider>
         <v-stepper-item value="4" title="Freedom Point"></v-stepper-item>
+        <v-divider></v-divider>
+        <v-stepper-item value="5" title="test"></v-stepper-item>
       </v-stepper-header>
 
       <v-stepper-window>
@@ -77,12 +81,14 @@ export default {
           <Step3/>
         </v-stepper-window-item>
         <v-stepper-window-item value="4">
+          <step4/>
+        </v-stepper-window-item>
+        <v-stepper-window-item value="5">
           <test/>
         </v-stepper-window-item>
       </v-stepper-window>
       <v-stepper-actions class="bg-amber-lighten-4 pt-2" color="amber-darken-2"
           :disabled="disabled"
-                          
                          @click:prev="prev"
                          @click:next="next">
       </v-stepper-actions>
