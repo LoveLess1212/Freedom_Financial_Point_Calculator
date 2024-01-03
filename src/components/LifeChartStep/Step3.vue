@@ -145,7 +145,7 @@
 <script>
 import { ref } from "vue";
 import BarChartStep3 from "./BarChartStep3.vue";
-import { user as store } from "../../services/store.js";
+import { user  } from "../../services/store.js";
 export default {
   components: {
     BarChartStep3
@@ -156,8 +156,8 @@ export default {
       steps: 1,
       stagesValue: [
         {
-          ageStart: store.age, // Idk why the store.age is not reactive regarardless of using ref, watch, computed...., but you call the store.age directly on the template, it will be reactive :D WTF really? wtf
-          ageEnd: store.expectedAge, // same as above
+          ageStart: user.age, // Idk why the store.age is not reactive regarardless of using ref, watch, computed...., but you call the store.age directly on the template, it will be reactive :D WTF really? wtf
+          ageEnd: user.expectedAge, // same as above
           income: {
           dependent: ref(0),
           selfEmploy: ref(0),
@@ -184,7 +184,7 @@ export default {
         else {
           this.stagesValue.push({
             ageStart: ref(),
-            ageEnd: store.expectedAge,
+            ageEnd: user.expectedAge,
             income: {
               dependent: ref(0),
               selfEmploy: ref(0),
@@ -234,8 +234,8 @@ export default {
   watch: {
     store: {
       handler() {
-        this.stagesValue[0].ageStart = store.age
-        this.stagesValue[0].ageEnd = store.expectedAge
+        this.stagesValue[0].ageStart = user.age
+        this.stagesValue[0].ageEnd = user.expectedAge
       },
       deep: true
     },

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import {store} from "../services/store.js";
+import * as store from "../services/store.js";
 export default {
   name: 'LifeChart',
   data(){

@@ -1,3 +1,20 @@
+<script setup>
+import { onMounted } from 'vue'
+import {user} from '../services/store'
+onMounted(() => {
+  let data = localStorage.getItem('user')
+  if (data == undefined || data == null){
+    return
+  }else{
+    var parsedData = JSON.parse(data);
+    Object.keys(user).forEach(key => {
+      user[key] = parsedData[key]
+  })
+  }
+  console.log(user)
+})
+</script>
+
 <script>
 import Step1 from "./LifeChartStep/Step1.vue";
 import Step2 from "./LifeChartStep/Step2.vue";
@@ -30,6 +47,7 @@ export default {
   },
 
 }
+
 
 </script>
 
