@@ -205,31 +205,31 @@ export default {
   },
   methods: {
     addTab() {
+      if (this.stagesValue[this.steps - 1].ageEnd < this.stagesValue[this.steps - 1].ageStart) {
+        alert("The end of the period must be greater than start of the period");
+        return;
+      }
       if (this.steps < 10) {
         this.steps++;
         this.tab = `stage${this.steps}`;
-        if (this.stagesValue[this.steps - 2].ageEnd < this.stagesValue[this.steps - 2].ageStart) {
-          alert("The end of the period must be greater than start of the period");
-        }
-        else {
-          this.stagesValue.push({
-            ageStart: ref(),
-            ageEnd: store.expectedAge,
-            income: {
-              dependent: ref(0),
-              selfEmploy: ref(0),
-              renting: ref(0),
-              other: ref(0),
-            },
-            expense: {
-              tax: ref(0),
-              dailyLife: ref(0),
-              maintenance: ref(0),
-              other: ref(0),
-            }
-          }),
-            this.stagesValue[this.steps - 1].ageStart = this.stagesValue[this.steps - 2].ageEnd;
-        }
+        this.stagesValue.push({
+          ageStart: ref(),
+          ageEnd: store.expectedAge,
+          income: {
+            dependent: ref(0),
+            selfEmploy: ref(0),
+            renting: ref(0),
+            other: ref(0),
+          },
+          expense: {
+            tax: ref(0),
+            dailyLife: ref(0),
+            maintenance: ref(0),
+            other: ref(0),
+          }
+        }),
+          this.stagesValue[this.steps - 1].ageStart = this.stagesValue[this.steps - 2].ageEnd;
+        
       }
       console.log("new stage added")
     },
@@ -242,6 +242,11 @@ export default {
     },
     //worked
     modifyData() {
+      console.log(this.ageEndValue)
+      if (parseInt(this.stagesValue[this.steps - 1].ageEnd) !== parseInt(this.ageEndValue)) {
+        alert("The end of the period must be equal to the expected age");
+        return;
+      }
       for (let i = 0; i < this.steps; i++) {
         let data = {
           StageIndex: i,
