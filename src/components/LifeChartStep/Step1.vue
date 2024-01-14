@@ -1,9 +1,16 @@
+/**
+ * Component for Step 1 of the LifeChart form.
+ * This component handles basic information input such as salutation, first name, last name, date of birth, age, and expected age.
+ *
+ * @component
+ * @example
+ * <Step1></Step1>
+ */
 <script>
 import { ref } from 'vue';
 import {useDate} from "vuetify";
-import  { user } from '../../services/store';
-import {toRaw} from 'vue'
-import { reactive } from 'vue';
+import { user as store } from '../../services/store';
+
 export default {
   name: 'Step1',
   data(){
@@ -46,8 +53,7 @@ export default {
       localStorage.setItem("user", JSON.stringify(toRaw(user)))
       console.log(user)
     }
-},
-  
+  },
 }
 </script>
 

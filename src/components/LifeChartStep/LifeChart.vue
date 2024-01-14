@@ -1,8 +1,11 @@
+<style scoped></style>
 <script>
 import { user, asset, income } from "../../services/store.js";
+import LineChart from "./LineChart.vue";
 
 export default {
   name: "LifeChart",
+  components: {LineChart},
   props: {
     riseinmoney: {
       type: Number,
@@ -15,6 +18,7 @@ export default {
   },
   methods: {
     SavingRiseExpected() {
+      console.log("SavingRiseExpected")
       let ageLeft = user.expectedAge - user.age;
       let Saving = new Array(ageLeft);
       // let StageIndex = new Array(ageLeft);
@@ -23,68 +27,137 @@ export default {
       //     StageIndex[i] = parseInt(stage.StageIndex);
       //   }
       // }
-      Saving[0] = parseInt(asset.FreeEquity);
+      // Saving[0] = parseInt(asset.FreeEquity);
       // console.log("Saving 0: " + Saving[0]);
       for (let k = 0; k < income.length; k++) {
         let stage = income[k];
-        // console.log("stage: ");
-        console.log(stage);
-        let revenue = parseInt(stage.IncomeDependent) + 
-                      parseInt(stage.IncomeSelfEmploy) +  
-                      parseInt(stage.IncomeRenting) + 
-                      parseInt(stage.IncomeOther) - 
-                      parseInt(stage.ExpenseTax) - 
-                      parseInt(stage.ExpenseDailyLife) - 
-                      parseInt(stage.ExpenseMaintenance) - 
-                      parseInt(stage.ExpenseOther);
-        // console.log("revenue of stage "+k +": "  + revenue);
-        // console.log("1+this.riseinmoney: " + (1+this.riseinmoney));
-        for (let i = parseInt(stage.StartAge) - parseInt(user.age)+1; i <= parseInt(stage.EndAge)-parseInt(user.age); i++){
-          console.log("i: " + i);
-          if (i > 0){
-            Saving[i] = Saving[i-1]*(1+this.riseinmoney) + revenue;
-            // console.log("Saving[i-1]: " + Saving[i-1]);
-            // console.log("1+this.riseinmoney: " + (1+this.riseinmoney));
-            // console.log("Saving[i-1]*(1+this.riseinmoney)" + Saving[i-1]*(1+this.riseinmoney));
+        // console.log("stage: " + k);
+        let revenue = parseInt(stage.IncomeDependent) +
+            parseInt(stage.IncomeSelfEmploy) +
+            parseInt(stage.IncomeRenting) +
+            parseInt(stage.IncomeOther) -
+            parseInt(stage.ExpenseTax) -
+            parseInt(stage.ExpenseDailyLife) -
+            parseInt(stage.ExpenseMaintenance) -
+            parseInt(stage.ExpenseOther);
+        if (k === 0) {
+          Saving[0] = parseInt(asset.FreeEquity) + revenue;
+          // console.log("Saving 0: " + Saving[0]);
+        }
+        for (let i = parseInt(stage.StartAge) - parseInt(user.age) ; i < parseInt(stage.EndAge) - parseInt(user.age); i++) {
+          // console.log("i: " + i);
+          if (i > 0) {
+            Saving[i] = (Saving[i - 1]+ revenue) * (1 + parseFloat(this.riseinmoney)) ;
+            // console.log("riseinmoney: " + this.riseinmoney);
+            // console.log("1+riseinmoney: " + (1 + parseFloat(this.riseinmoney)));
+            // console.log("revenue: " + revenue);
             // console.log("Saving " + i + ": " + Saving[i]);
             // console.log("------------------")
           }
+
         }
         // console.log(Saving)
         // console.log("------------------")
-      
+
       }
       // for(let i = 0; i < ageLeft; i++){
       //   console.log("type:" + typeof(Saving[i]) )
       //   console.log("data: "+ Saving[i]);  
       // }
+      // console.log(Saving)
       return Saving;
-    }, // this start from 1 actually
+    },
     MoneyNeed() {
       let ageLeft = user.expectedAge - user.age;
       let MoneyNeed = new Array(ageLeft);
-      let last = income[income.length-1].ExpenseTax + income[income.length-1].ExpenseDailyLife + income[income.length-1].ExpenseMaintenance + income[income.length-1].ExpenseOther;
-      MoneyNeed[ageLeft-1] = last * Math.pow((1+this.inflation), ageLeft-1);  //check here if the ageleft is correct
-      for(let i = income.length-1; i >= 0; i--){
+      let last = parseInt(income[income.length - 1].ExpenseTax) +
+          parseInt(income[income.length - 1].ExpenseDailyLife) +
+          parseInt(income[income.length - 1].ExpenseMaintenance) +
+          parseInt(income[income.length - 1].ExpenseOther);
+
+      // console.log("last: " + last)
+
+      MoneyNeed[ageLeft - 1] = last * Math.pow((1 + parseFloat(this.inflation)), ageLeft);
+      // console.log("MoneyNeed["+(ageLeft-1)+"]: " + MoneyNeed[ageLeft-1]);
+      // console.log("ageLeft: " + ageLeft);
+      for (let i = income.length - 1; i >= 0; i--) {
         let stage = income[i];
         let expense = parseInt(stage.ExpenseTax) + parseInt(stage.ExpenseDailyLife) + parseInt(stage.ExpenseMaintenance) + parseInt(stage.ExpenseOther);
-        for(let j = parseInt(stage.EndAge)-parseInt(user.age); j >= parseInt(stage.StartAge)-parseInt(user.age); j--){
-          if(j < ageLeft-1){
-            MoneyNeed[j] = MoneyNeed[j+1]+ Math.pow(1+this.inflation,j) * expense; // check this to see if the math pow is coorect
+        // console.log("expense of stage "+(i+1)+": "  + expense);
+        for (let j = parseInt(stage.EndAge) - parseInt(user.age) - 1; j >= parseInt(stage.StartAge) - parseInt(user.age); j--) {
+          if (j < ageLeft - 1) {
+            MoneyNeed[j] = MoneyNeed[j + 1] + Math.pow(1 + parseFloat(this.inflation), j+1) * expense; // check this to see if the math pow is coorect
+            // console.log("j: " + j);
+            // console.log("MoneyNeed["+  (j+1) +"]: " + MoneyNeed[j]);
+
+            // console.log("1+inflation: " + (1 + parseFloat(this.inflation)));
+            // console.log("Math.pow(1+inflation, j): " + Math.pow(1 + parseFloat(this.inflation), j));
+            // console.log("math pow * expense " + Math.pow(1 + parseFloat(this.inflation), j) * expense);
+            // console.log("------------------")
           }
         }
+        // console.log("------------------");
       }
+      // console.log(MoneyNeed)
       return MoneyNeed;
     },
+    FreedomPoint(){
+      let ageLeft = user.expectedAge - user.age;
+      let Saving = this.SavingRiseExpected();
+      let MoneyNeed = this.MoneyNeed();
+      let FreedomPoint = new Array(ageLeft);
+      for(let i = 0; i < ageLeft; i++){
+        FreedomPoint[i] = Saving[i] - MoneyNeed[i];
+        console.log("Saving["+i+"]: " + Saving[i])
+        console.log("MoneyNeed["+i+"]: " + MoneyNeed[i])
+        console.log("FreedomPoint["+i+"]: " + FreedomPoint[i])
+        console.log("------------------")
+      }
+      return FreedomPoint;
+
+    },
+  },
+  data (){
+    return{
+    }
+  },
+  computed: {
+    dataChart() {
+      let ageArray = new Array(user.expectedAge - user.age);
+      for (let i = 0; i < ageArray.length; i++) {
+        ageArray[i] = user.age + i;
+      }
+      return {
+        labels: ageArray,
+        datasets: [
+          {
+            label: 'Saving',
+            data: this.SavingRiseExpected(),
+            backgroundColor: '#00FF00',
+            borderColor: '#00FF00',
+            pointStyle: 'circle',
+            pointRadius: 0
+          },
+          {
+            label: 'Money Need',
+            data: this.MoneyNeed(),
+            backgroundColor: '#FF0000',
+            borderColor: '#FF0000',
+            pointStyle: 'circle',
+            pointRadius: 0
+          }
+        ]
+      }
+    }
+
   }
+
 }
+
 </script>
 
 <template>
-    <h1> All the saving value</h1>
-    <v-btn @click="SavingRiseExpected">Click me</v-btn>
+  <LineChart :dataChart="dataChart"/>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

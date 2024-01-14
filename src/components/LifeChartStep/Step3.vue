@@ -1,3 +1,29 @@
+<!-- /**
+ * Component: Step3
+ * Filepath: /e:/4th year/test1/src/components/LifeChartStep/Step3.vue
+ * 
+ * This component represents the third step of the LifeChart form.
+ * It allows the user to add and remove stages, and input income and expense data for each stage.
+ * The component includes a tab navigation, text fields for input, and a bar chart visualization.
+ * 
+ * Props:
+ *   - None
+ * 
+ * Data:
+ *   - tab: The currently selected tab
+ *   - steps: The number of stages
+ *   - stagesValue: An array of objects representing the data for each stage
+ * 
+ * Computed Properties:
+ *   - passData: Returns the data for the currently selected stage
+ * 
+ * Methods:
+ *   - addTab: Adds a new stage to the form
+ *   - reduceTab: Removes the last stage from the form
+ *   - modifyData: Updates the store with the input data for each stage
+ * 
+ * @component
+ */ -->
 <template>
   <v-card>
     <v-tabs v-model="tab" bg-color="primary" class="mx-5">

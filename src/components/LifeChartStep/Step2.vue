@@ -1,4 +1,16 @@
+
 <script>
+/**
+ * Step2 component represents the second step of the LifeChart form.
+ * It allows the user to input their assets and liabilities information.
+ * The component calculates the total assets, total liabilities, and free equity based on the user's input.
+ * It also generates data for the PieChart component to display the percentage distribution of assets and liabilities.
+ * The user can submit the data by clicking the "Submit" button.
+ *
+ * @component Step2
+ * @example
+ * <Step2></Step2>
+ */
 import {ref} from "vue";
 import { asset as store } from "../../services/store";
 import PieChart from "./PieChart.vue";
