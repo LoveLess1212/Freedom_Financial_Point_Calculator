@@ -36,14 +36,31 @@
 </template>
 
 <script>
-import {user} from "../../services/store.js";
+import {user, asset, income  } from "../../services/store.js";
 import LifeChart from "../LifeChartStep/LifeChart.vue";
+import axios from 'axios';
+import {BASE_URL} from "../../setting"
+import { toRaw } from "vue";
+
 export default {
   components: {LifeChart},
   methods: {
     modifyData() {
       user.inflation = parseInt(this.Inflation);
       user.riseInValue = parseInt(this.RiseInValue);
+      axios.post(BASE_URL+"/postData", {
+        User: toRaw(user),
+        Balance: toRaw(asset),
+        Stage: toRaw(income)
+      })
+      .then(response => {
+        // Handle the successful response here
+        console.log(response.data);
+      })
+      .catch(error => {
+        // Handle the error here
+        console.error(error);
+      })
     }
   },
   data() {

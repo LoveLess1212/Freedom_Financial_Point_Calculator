@@ -8,8 +8,9 @@
  */
 <script>
 import { ref } from 'vue';
-import {useDate} from "vuetify";
-import { user as store } from '../../services/store';
+import { useDate } from "vuetify";
+import { reactive, toRaw } from 'vue';
+import { user } from '../../services/store';
 
 export default {
   name: 'Step1',
