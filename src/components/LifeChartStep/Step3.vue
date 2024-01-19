@@ -214,7 +214,7 @@ export default {
         else {
           this.stagesValue.push({
             ageStart: ref(),
-            ageEnd: store.expectedAge,
+            ageEnd: user.expectedAge,
             income: {
               dependent: ref(0),
               selfEmploy: ref(0),

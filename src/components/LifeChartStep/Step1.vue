@@ -8,15 +8,16 @@
  */
 <script>
 import { ref } from 'vue';
-import {useDate} from "vuetify";
-import { user as store } from '../../services/store';
+import { useDate } from "vuetify";
+import { reactive, toRaw } from 'vue';
+import { user } from '../../services/store';
 
 export default {
   name: 'Step1',
   data(){
     return {
-      salutation: ref(''),
-      firstName: ref(''),
+      salutation: user.salutation,
+      firstName: reactive(user.firstName),
       lastName: ref(''),
       selectedDate: ref(new Date()),
       showDatePicker: false,
@@ -41,14 +42,17 @@ export default {
     test(){
       this.showDatePicker = true
   },
-    modifyData(){
-      store.salutation = this.salutation
-      store.firstName = this.firstName
-      store.lastName = this.lastName
-      store.dateOfBirth = this.selectedDate
-      store.age = this.age
-      store.expectedAge = this.expectedAge
-      console.log(store)
+    modifyData(){ 
+      user.salutation = this.salutation
+      user.firstName = this.firstName
+      user.lastName = this.lastName
+      user.dateOfBirth = this.selectedDate
+      user.age = this.age
+      user.expectedAge = this.expectedAge
+      user.isSet = true
+      localStorage.removeItem("user")
+      localStorage.setItem("user", JSON.stringify(toRaw(user)))
+      console.log(user)
     }
   },
 }

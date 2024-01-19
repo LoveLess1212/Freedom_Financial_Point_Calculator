@@ -5,6 +5,7 @@ export const user = reactive({
         lastName: '',
         age: 0,
         expectedAge: 0,
+        isSet: false
     })
 export const asset = reactive({
         Cash: 0,
