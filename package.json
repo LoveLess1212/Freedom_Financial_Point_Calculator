@@ -6,11 +6,14 @@
     "serve": "vite preview",
     "build": "vite build",
     "dev": "vite",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "run_server": "node ./src/indexdb.js"
   },
   "dependencies": {
     "@mdi/font": "5.9.55",
+    "axios": "^1.6.2",
     "chart.js": "^4.4.1",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "mitt": "^1.0.1",
     "mongoose": "^8.0.3",
