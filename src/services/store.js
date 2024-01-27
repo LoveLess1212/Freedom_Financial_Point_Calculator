@@ -35,4 +35,6 @@ export const income = reactive(
         ExpenseMaintenance: 0,
         ExpenseOther: 0,
     }])
-export const calulatedGroup = reactive(null)
+export const calulatedGroup = reactive({
+    data: null
+})
