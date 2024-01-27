@@ -5,7 +5,8 @@ export const user = reactive({
         lastName: '',
         age: 0,
         expectedAge: 0,
-        isSet: false
+        isSet: false,
+        id: ''
     })
 export const asset = reactive({
         Cash: 0,
@@ -34,3 +35,4 @@ export const income = reactive(
         ExpenseMaintenance: 0,
         ExpenseOther: 0,
     }])
+export const calulatedGroup = reactive(null)
