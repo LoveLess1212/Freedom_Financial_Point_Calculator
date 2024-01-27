@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import Capital from './components/Capital.vue'
 import NavBar from "./components/NavBar.vue";
 import Footer from "./components/Footer.vue";
 import MainStep from "./components/MainStep.vue";
@@ -27,7 +26,7 @@ export default {
     MainStep,
     Footer,
     NavBar,
-    Capital,
+    
   },
   data: () => ({
 

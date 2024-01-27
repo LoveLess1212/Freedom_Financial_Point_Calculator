@@ -87,13 +87,6 @@ export default {
         for (let j = parseInt(stage.EndAge) - parseInt(user.age) - 1; j >= parseInt(stage.StartAge) - parseInt(user.age); j--) {
           if (j < ageLeft - 1) {
             MoneyNeed[j] = MoneyNeed[j + 1] + Math.pow(1 + parseFloat(this.inflation), j+1) * expense; // check this to see if the math pow is coorect
-            // console.log("j: " + j);
-            // console.log("MoneyNeed["+  (j+1) +"]: " + MoneyNeed[j]);
-
-            // console.log("1+inflation: " + (1 + parseFloat(this.inflation)));
-            // console.log("Math.pow(1+inflation, j): " + Math.pow(1 + parseFloat(this.inflation), j));
-            // console.log("math pow * expense " + Math.pow(1 + parseFloat(this.inflation), j) * expense);
-            // console.log("------------------")
           }
         }
         // console.log("------------------");
@@ -106,15 +99,15 @@ export default {
       let Saving = this.SavingRiseExpected();
       let MoneyNeed = this.MoneyNeed();
       let FreedomPoint = new Array(ageLeft);
+      let point = 0;
       for(let i = 0; i < ageLeft; i++){
         FreedomPoint[i] = Saving[i] - MoneyNeed[i];
-        console.log("Saving["+i+"]: " + Saving[i])
-        console.log("MoneyNeed["+i+"]: " + MoneyNeed[i])
-        console.log("FreedomPoint["+i+"]: " + FreedomPoint[i])
-        console.log("------------------")
+        if (FreedomPoint[i] > 0){
+          point = i;
+          break;
+        }
       }
-      return FreedomPoint;
-
+      return point + user.age;
     },
   },
   data (){
@@ -127,6 +120,8 @@ export default {
       for (let i = 0; i < ageArray.length; i++) {
         ageArray[i] = user.age + i;
       }
+      this.$emit('set-freedom-point', this.FreedomPoint())
+      console.log("FreedomPoint: " + this.FreedomPoint())
       return {
         labels: ageArray,
         datasets: [
