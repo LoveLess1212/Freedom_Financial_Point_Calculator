@@ -1,6 +1,8 @@
 import express, { json } from 'express'
 import mongoose, { connect, Schema, model } from 'mongoose'
 import cors from 'cors'
+
+import {calculateGroup} from './mean.js'
 // const cors = require('cors')
 const app = express()
 app.use(cors())
@@ -74,8 +76,19 @@ app.post("/postData", async (req, res) =>{
     let any = req.body;
     let data = new UserModel(any);
     const result = await data.save();
-    res.json(result)
+    res.json(result._id)
 })
+
+app.get("/calculateGroup/:userId", async(req, res) => {
+    let data = await UserModel.find().select('Balance.Cash Balance.Business');
+    let userData = await UserModel.findOne({_id: req.params.userId}).select('Balance.Cash Balance.Business');
+    var parsed = data.map(x=> [x.Balance.Cash, x.Balance.Business])
+    if (parsed.length < 3){
+        res.json(-1)
+    }else{
+        res.json(calculateGroup(parsed, [userData.Balance.Cash, userData.Balance.Business]))
+    }
+});
 
 app.listen(5000, async () => {
     await connectDb()

@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import {user, asset, income  } from "../../services/store.js";
+import {user, asset, income, calulatedGroup  } from "../../services/store.js";
 import LifeChart from "../LifeChartStep/LifeChart.vue";
 import axios from 'axios';
 import {BASE_URL} from "../../setting"
@@ -54,6 +54,11 @@ export default {
         Stage: toRaw(income)
       })
       .then(response => {
+        user.id = response.data
+        localStorage.setItem("user", JSON.stringify(toRaw(user)))
+        axios.get(BASE_URL+"/calculateGroup/" + user.id).then(res =>{
+          calulatedGroup = res
+        })
         // Handle the successful response here
         console.log(response.data);
       })
