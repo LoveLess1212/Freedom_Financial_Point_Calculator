@@ -1,5 +1,6 @@
 <template>
   <Line :data="data" :options="options" />
+  
 </template>
 
 <script lang="ts">
@@ -15,6 +16,9 @@ import {
 } from 'chart.js'
 import { Line } from 'vue-chartjs'
 import * as chartConfig from './chartConfig.js'
+// receive number group, next is display it
+import { calulatedGroup  } from "../services/store.js";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
