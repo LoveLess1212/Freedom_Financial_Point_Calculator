@@ -62,7 +62,8 @@ export default {
         user.id = response.data
         localStorage.setItem("user", JSON.stringify(toRaw(user)))
         axios.get(BASE_URL+"/calculateGroup/" + user.id).then(res =>{
-          calulatedGroup = res
+          console.log(res.data)
+          calulatedGroup.data = res.data
         })
         // Handle the successful response here
         console.log(response.data);
