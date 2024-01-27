@@ -71,6 +71,9 @@ export default {
         // Handle the error here
         console.error(error);
       })
+    },
+    setFreedomPoint(value) {
+      this.FFP = value;
     }
   },
   data() {
