@@ -21,14 +21,8 @@ export default {
   computed: {
     k_group() {
       return calulatedGroup.data;
-    }
-  },
-  methods: {
-    /**
-     * Returns the group name based on the value of k_group.
-     * @returns {string} The group name.
-     */
-     group2name() {
+    },
+    group2name() {
       if (this.k_group === 1) {
         this.grname = "good starter";
       } else if (this.k_group === 2) {
@@ -39,7 +33,14 @@ export default {
       else{
         this.grname = "zero that not infer the group for you due to lack of data or something."
       }
-    },
+    }
+  },
+  methods: {
+    /**
+     * Returns the group name based on the value of k_group.
+     * @returns {string} The group name.
+     */
+,
     modifyData(){
     console.log(this.k_group)
   }
