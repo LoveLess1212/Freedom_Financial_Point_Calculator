@@ -11,7 +11,7 @@ import { ref } from 'vue';
 import { useDate } from "vuetify";
 import { reactive, toRaw } from 'vue';
 import { user } from '../../services/store';
-
+import { ffp } from '../../services/store';
 export default {
   name: 'Step1',
   data(){
@@ -28,6 +28,7 @@ export default {
         v => !!v || 'Last name is required',
       ],
       expectedAge: null,
+      expectedFFP: null,
     }
   },
   computed: {
@@ -50,6 +51,7 @@ export default {
       user.age = this.age
       user.expectedAge = this.expectedAge
       user.isSet = true
+      ffp.expected = parseInt(this.expectedFFP)
       localStorage.removeItem("user")
       localStorage.setItem("user", JSON.stringify(toRaw(user)))
       console.log(user)
@@ -86,6 +88,7 @@ export default {
             </v-row>
             <v-text-field v-model="age" readonly="true" label="age" class="mt-5" ></v-text-field>
             <v-text-field v-model="expectedAge" label="Expected age"></v-text-field>
+            <v-text-field v-model="expectedFFP" label="your expected freedom financial age"></v-text-field>
             <v-btn type="submit" block @click="modifyData" class="mt-2">Submit</v-btn>
           </v-form>
         </v-sheet>

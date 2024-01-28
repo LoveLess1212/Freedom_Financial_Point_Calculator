@@ -21,17 +21,9 @@ export default {
       console.log("SavingRiseExpected")
       let ageLeft = user.expectedAge - user.age;
       let Saving = new Array(ageLeft);
-      // let StageIndex = new Array(ageLeft);
-      // for (let stage in income) {
-      //   for (let i = 0; i < ageLeft; i++) {
-      //     StageIndex[i] = parseInt(stage.StageIndex);
-      //   }
-      // }
-      // Saving[0] = parseInt(asset.FreeEquity);
-      // console.log("Saving 0: " + Saving[0]);
       for (let k = 0; k < income.length; k++) {
         let stage = income[k];
-        // console.log("stage: " + k);
+  
         let revenue = parseInt(stage.IncomeDependent) +
             parseInt(stage.IncomeSelfEmploy) +
             parseInt(stage.IncomeRenting) +
@@ -42,29 +34,15 @@ export default {
             parseInt(stage.ExpenseOther);
         if (k === 0) {
           Saving[0] = parseInt(asset.FreeEquity) + revenue;
-          // console.log("Saving 0: " + Saving[0]);
+
         }
         for (let i = parseInt(stage.StartAge) - parseInt(user.age) ; i < parseInt(stage.EndAge) - parseInt(user.age); i++) {
-          // console.log("i: " + i);
+
           if (i > 0) {
             Saving[i] = (Saving[i - 1]+ revenue) * (1 + parseFloat(this.riseinmoney)) ;
-            // console.log("riseinmoney: " + this.riseinmoney);
-            // console.log("1+riseinmoney: " + (1 + parseFloat(this.riseinmoney)));
-            // console.log("revenue: " + revenue);
-            // console.log("Saving " + i + ": " + Saving[i]);
-            // console.log("------------------")
           }
-
         }
-        // console.log(Saving)
-        // console.log("------------------")
-
       }
-      // for(let i = 0; i < ageLeft; i++){
-      //   console.log("type:" + typeof(Saving[i]) )
-      //   console.log("data: "+ Saving[i]);  
-      // }
-      // console.log(Saving)
       return Saving;
     },
     MoneyNeed() {
@@ -75,23 +53,20 @@ export default {
           parseInt(income[income.length - 1].ExpenseMaintenance) +
           parseInt(income[income.length - 1].ExpenseOther);
 
-      // console.log("last: " + last)
 
       MoneyNeed[ageLeft - 1] = last * Math.pow((1 + parseFloat(this.inflation)), ageLeft);
-      // console.log("MoneyNeed["+(ageLeft-1)+"]: " + MoneyNeed[ageLeft-1]);
-      // console.log("ageLeft: " + ageLeft);
+
       for (let i = income.length - 1; i >= 0; i--) {
         let stage = income[i];
         let expense = parseInt(stage.ExpenseTax) + parseInt(stage.ExpenseDailyLife) + parseInt(stage.ExpenseMaintenance) + parseInt(stage.ExpenseOther);
-        // console.log("expense of stage "+(i+1)+": "  + expense);
+
         for (let j = parseInt(stage.EndAge) - parseInt(user.age) - 1; j >= parseInt(stage.StartAge) - parseInt(user.age); j--) {
           if (j < ageLeft - 1) {
             MoneyNeed[j] = MoneyNeed[j + 1] + Math.pow(1 + parseFloat(this.inflation), j+1) * expense; // check this to see if the math pow is coorect
           }
         }
-        // console.log("------------------");
       }
-      // console.log(MoneyNeed)
+
       return MoneyNeed;
     },
     FreedomPoint(){

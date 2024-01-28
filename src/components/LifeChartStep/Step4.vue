@@ -16,7 +16,6 @@
                 <v-text-field v-model="expectedAge" label="Age End" disabled></v-text-field>
               </v-col>
             </v-row>
-            <v-text-field v-model="FFP" disabled label="Freedom Point"></v-text-field>
             <v-text-field v-model="Inflation" label="Inflation"></v-text-field>
             <v-text-field v-model="RiseInValue" label="Expected rising"></v-text-field>
             <v-text-field v-model="FFP" readonly label="Your Age of having financial freedom"></v-text-field>
@@ -46,13 +45,14 @@ import LifeChart from "../LifeChartStep/LifeChart.vue";
 import axios from 'axios';
 import { BASE_URL } from "../../setting"
 import { toRaw } from "vue"; 
-
+import { ffp } from "../../services/store.js";
 export default {
   components: { LifeChart },
   methods: {
     modifyData() {
       user.inflation = parseInt(this.Inflation);
       user.riseInValue = parseInt(this.RiseInValue);
+      ffp.actual = parseInt(this.FFP);
       axios.post(BASE_URL + "/postData", {
         User: toRaw(user),
         Balance: toRaw(asset),

@@ -38,3 +38,7 @@ export const income = reactive(
 export const calulatedGroup = reactive({
     data: null
 })
+export const ffp = reactive({
+    expected: null,
+    actual: null
+})

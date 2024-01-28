@@ -38,7 +38,7 @@ export default {
 </script>
 
 <template>
-  <v-stepper v-model="StepState" editable >
+  <v-stepper v-model="StepState" >
     <template v-slot:default="{ prev, next }">
       <v-stepper-header>
         <v-stepper-item value="1" title="Basic Information"></v-stepper-item>
@@ -51,7 +51,7 @@ export default {
         <v-divider></v-divider>
         <v-stepper-item value="4" title="Freedom Point"></v-stepper-item>
         <v-divider></v-divider>
-        <v-stepper-item value="5" title="test"></v-stepper-item>
+        <v-stepper-item value="5" title="Result"></v-stepper-item>
       </v-stepper-header>
 
       <v-stepper-window>
