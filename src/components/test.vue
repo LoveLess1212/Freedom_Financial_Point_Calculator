@@ -20,14 +20,14 @@ export default {
   },
   computed: {
     k_group() {
-      return calulatedGroup.data;
-    },
-    group2name() {
-      if (this.k_group === 1) {
+      let k_group= calulatedGroup.data;
+      console.log(k_group)
+      console.log("running grp2name")
+      if (k_group === 1) {
         this.grname = "good starter";
-      } else if (this.k_group === 2) {
+      } else if (k_group === 2) {
         this.grname =  "smart saver";
-      } else if (this.k_group=== 3) {
+      } else if (k_group=== 3) {
         this.grname = "good saver";
       }
       else{
@@ -40,9 +40,10 @@ export default {
      * Returns the group name based on the value of k_group.
      * @returns {string} The group name.
      */
-,
+    
     modifyData(){
-    console.log(this.k_group)
+      console.log(calulatedGroup)
+    this.k_group
   }
   }
   
